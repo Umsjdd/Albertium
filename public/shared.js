@@ -373,9 +373,13 @@
   })();
 
   // ═══ ACTIVE NAV LINK ═══
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Express routes: /, /about, /services, /projects, /contact
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
   document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.getAttribute('href') === currentPage) {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    const normalized = href.replace(/\/$/, '') || '/';
+    if (normalized === currentPath) {
       link.style.color = 'var(--accent)';
     }
   });
