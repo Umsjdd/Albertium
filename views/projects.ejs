@@ -176,106 +176,17 @@
 
 <!-- ═══ PROJECTS GRID ═══ -->
 <div class="projects-grid">
-
-  <!-- 1. The Meridian House — Featured -->
-  <div class="pg-card featured reveal" data-category="residential" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2c3e6b, #0f1a30);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Residential</span>
-      <h3 class="pg-title">The Meridian House</h3>
-      <p class="pg-meta">London, 2024</p>
+  <% projects.forEach(function(project) { %>
+    <div class="pg-card<%= project.featured ? ' featured' : '' %> reveal" data-category="<%= project.category %>" data-cursor-text="View">
+      <div class="pg-card-bg" style="background: <%= project.gradientCss %>;"></div>
+      <div class="pg-card-overlay"></div>
+      <div class="pg-card-content">
+        <span class="pg-tag"><%= project.category.charAt(0).toUpperCase() + project.category.slice(1) %></span>
+        <h3 class="pg-title"><%= project.title %></h3>
+        <p class="pg-meta"><%= project.meta %></p>
+      </div>
     </div>
-  </div>
-
-  <!-- 2. Azure Commercial Tower -->
-  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3b5998, #0d1f3c);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Commercial</span>
-      <h3 class="pg-title">Azure Commercial Tower</h3>
-      <p class="pg-meta">Manchester, 2023</p>
-    </div>
-  </div>
-
-  <!-- 3. St. Barnabas Cultural Centre -->
-  <div class="pg-card reveal" data-category="cultural" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #4a6fa5, #162d47);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Cultural</span>
-      <h3 class="pg-title">St. Barnabas Cultural Centre</h3>
-      <p class="pg-meta">Birmingham, 2023</p>
-    </div>
-  </div>
-
-  <!-- 4. The Ivory Residence -->
-  <div class="pg-card reveal" data-category="residential" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2e5266, #0d2230);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Residential</span>
-      <h3 class="pg-title">The Ivory Residence</h3>
-      <p class="pg-meta">Edinburgh, 2022</p>
-    </div>
-  </div>
-
-  <!-- 5. Nexus Business Park -->
-  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3d5a80, #111d2e);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Commercial</span>
-      <h3 class="pg-title">Nexus Business Park</h3>
-      <p class="pg-meta">Leeds, 2022</p>
-    </div>
-  </div>
-
-  <!-- 6. Green Terrace Villas — Featured -->
-  <div class="pg-card featured reveal" data-category="sustainable" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2d6b4f, #0f3024);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Sustainable</span>
-      <h3 class="pg-title">Green Terrace Villas</h3>
-      <p class="pg-meta">Bristol, 2023</p>
-    </div>
-  </div>
-
-  <!-- 7. The Atrium Gallery -->
-  <div class="pg-card reveal" data-category="cultural" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #5c4a82, #1f1535);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Cultural</span>
-      <h3 class="pg-title">The Atrium Gallery</h3>
-      <p class="pg-meta">Liverpool, 2021</p>
-    </div>
-  </div>
-
-  <!-- 8. Zenith Apartments -->
-  <div class="pg-card reveal" data-category="residential" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #4a5d7a, #1a2538);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Residential</span>
-      <h3 class="pg-title">Zenith Apartments</h3>
-      <p class="pg-meta">Glasgow, 2024</p>
-    </div>
-  </div>
-
-  <!-- 9. Horizon Office Campus -->
-  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
-    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3a6b8c, #122a3d);"></div>
-    <div class="pg-card-overlay"></div>
-    <div class="pg-card-content">
-      <span class="pg-tag">Commercial</span>
-      <h3 class="pg-title">Horizon Office Campus</h3>
-      <p class="pg-meta">Cardiff, 2022</p>
-    </div>
-  </div>
-
+  <% }); %>
 </div>
 
 <!-- ═══ CTA ═══ -->

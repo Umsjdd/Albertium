@@ -154,26 +154,13 @@
     <div class="section-label reveal" style="color: var(--accent);">01 &mdash; What We Do</div>
     <h2 class="section-heading light reveal">What We Do</h2>
     <div class="services-grid">
-      <div class="service-card reveal reveal-d1">
-        <div class="service-num">01</div>
-        <h3 class="service-title">Architectural Design</h3>
-        <p class="service-desc">Concept to completion. Buildings that balance innovation with timeless elegance.</p>
-      </div>
-      <div class="service-card reveal reveal-d2">
-        <div class="service-num">02</div>
-        <h3 class="service-title">Sustainable Design</h3>
-        <p class="service-desc">Eco-friendly materials. Energy-efficient spaces that respect the environment.</p>
-      </div>
-      <div class="service-card reveal reveal-d3">
-        <div class="service-num">03</div>
-        <h3 class="service-title">Interior Architecture</h3>
-        <p class="service-desc">Interiors that harmonize with their shell. Material, light, and spatial composition.</p>
-      </div>
-      <div class="service-card reveal reveal-d4">
-        <div class="service-num">04</div>
-        <h3 class="service-title">Consultation &amp; Planning</h3>
-        <p class="service-desc">Feasibility to planning approval. We navigate complexity so you don't have to.</p>
-      </div>
+      <% services.forEach(function(service, i) { %>
+        <div class="service-card reveal reveal-d<%= i + 1 %>">
+          <div class="service-num"><%= service.number %></div>
+          <h3 class="service-title"><%= service.title %></h3>
+          <p class="service-desc"><%= service.description %></p>
+        </div>
+      <% }); %>
     </div>
   </div>
 </section>
@@ -182,93 +169,27 @@
 <span class="section-line"></span>
 
 <!-- ═══ SERVICE DETAIL 1: ARCHITECTURAL DESIGN ═══ -->
-<section class="detail-section section-padding">
-  <div class="blueprint-grid"></div>
-  <div class="service-detail" style="position: relative; z-index: 2;">
-    <div class="sd-visual reveal">
-      <div class="sd-visual-bg sd-bg-1 clip-reveal"></div>
-      <div class="sd-visual-line"></div>
+<% services.forEach(function(service, i) { %>
+  <% if (i > 0) { %><span class="section-line"></span><% } %>
+  <section class="detail-section section-padding">
+    <div class="blueprint-grid"></div>
+    <div class="service-detail<%= i % 2 === 1 ? ' reverse' : '' %>" style="position: relative; z-index: 2;">
+      <div class="sd-visual reveal">
+        <div class="sd-visual-bg <%= service.detailBgClass %> clip-reveal"></div>
+        <div class="sd-visual-line"></div>
+      </div>
+      <div class="sd-content">
+        <h3 class="reveal"><%= service.title %></h3>
+        <p class="reveal reveal-d1"><%= service.detailBody %></p>
+        <ul class="feature-list">
+          <% service.features.forEach(function(feature, j) { %>
+            <li class="reveal reveal-d<%= j + 2 %>"><%= feature.label %></li>
+          <% }); %>
+        </ul>
+      </div>
     </div>
-    <div class="sd-content">
-      <h3 class="reveal">Architectural Design</h3>
-      <p class="reveal reveal-d1">Every building begins with a conversation. We work closely with clients to understand their vision, then translate it into spaces that exceed expectations. From initial sketches through to construction documentation, our designs balance ambition with buildability.</p>
-      <ul class="feature-list">
-        <li class="reveal reveal-d2">Concept Development &amp; Feasibility</li>
-        <li class="reveal reveal-d3">Planning Applications &amp; Approvals</li>
-        <li class="reveal reveal-d4">Construction Documentation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SECTION LINE ═══ -->
-<span class="section-line"></span>
-
-<!-- ═══ SERVICE DETAIL 2: SUSTAINABLE DESIGN ═══ -->
-<section class="detail-section section-padding">
-  <div class="blueprint-grid"></div>
-  <div class="service-detail reverse" style="position: relative; z-index: 2;">
-    <div class="sd-visual reveal">
-      <div class="sd-visual-bg sd-bg-2 clip-reveal"></div>
-      <div class="sd-visual-line"></div>
-    </div>
-    <div class="sd-content">
-      <h3 class="reveal">Sustainable Design</h3>
-      <p class="reveal reveal-d1">Sustainability isn't an add-on &mdash; it's woven into every decision. We select materials, orient buildings, and design systems that minimise environmental impact while maximising comfort and performance.</p>
-      <ul class="feature-list">
-        <li class="reveal reveal-d2">Energy Modelling &amp; Passive Design</li>
-        <li class="reveal reveal-d3">Material Lifecycle Analysis</li>
-        <li class="reveal reveal-d4">BREEAM &amp; Eco Certifications</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SECTION LINE ═══ -->
-<span class="section-line"></span>
-
-<!-- ═══ SERVICE DETAIL 3: INTERIOR ARCHITECTURE ═══ -->
-<section class="detail-section section-padding">
-  <div class="blueprint-grid"></div>
-  <div class="service-detail" style="position: relative; z-index: 2;">
-    <div class="sd-visual reveal">
-      <div class="sd-visual-bg sd-bg-3 clip-reveal"></div>
-      <div class="sd-visual-line"></div>
-    </div>
-    <div class="sd-content">
-      <h3 class="reveal">Interior Architecture</h3>
-      <p class="reveal reveal-d1">The interior is where architecture meets daily life. We design spaces that feel as intentional inside as they look outside &mdash; where every surface, fixture, and sightline has been considered.</p>
-      <ul class="feature-list">
-        <li class="reveal reveal-d2">Spatial Planning &amp; Flow</li>
-        <li class="reveal reveal-d3">Material &amp; Finish Specification</li>
-        <li class="reveal reveal-d4">Furniture &amp; Lighting Design</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SECTION LINE ═══ -->
-<span class="section-line"></span>
-
-<!-- ═══ SERVICE DETAIL 4: CONSULTATION & PLANNING ═══ -->
-<section class="detail-section section-padding">
-  <div class="blueprint-grid"></div>
-  <div class="service-detail reverse" style="position: relative; z-index: 2;">
-    <div class="sd-visual reveal">
-      <div class="sd-visual-bg sd-bg-4 clip-reveal"></div>
-      <div class="sd-visual-line"></div>
-    </div>
-    <div class="sd-content">
-      <h3 class="reveal">Consultation &amp; Planning</h3>
-      <p class="reveal reveal-d1">Navigating the planning process requires expertise and precision. We guide projects from initial feasibility through to full approval, handling the complexity so our clients can focus on their vision.</p>
-      <ul class="feature-list">
-        <li class="reveal reveal-d2">Site Analysis &amp; Feasibility Studies</li>
-        <li class="reveal reveal-d3">Planning Strategy &amp; Submissions</li>
-        <li class="reveal reveal-d4">Stakeholder Engagement</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
+<% }); %>
 
 <!-- ═══ SECTION LINE ═══ -->
 <span class="section-line"></span>
@@ -281,26 +202,13 @@
     <div class="section-label reveal">02 &mdash; Our Process</div>
     <h2 class="section-heading reveal reveal-d1">From Vision to Reality</h2>
     <div class="process-timeline">
-      <div class="process-step reveal reveal-d2">
-        <div class="step-dot">01</div>
-        <div class="step-title">Discovery</div>
-        <div class="step-desc">We listen. Your vision and aspirations form the foundation.</div>
-      </div>
-      <div class="process-step reveal reveal-d3">
-        <div class="step-dot">02</div>
-        <div class="step-title">Design</div>
-        <div class="step-desc">Concepts evolve through collaboration and 3D visualization.</div>
-      </div>
-      <div class="process-step reveal reveal-d4">
-        <div class="step-dot">03</div>
-        <div class="step-title">Develop</div>
-        <div class="step-desc">Precision documentation. Every detail built as designed.</div>
-      </div>
-      <div class="process-step reveal reveal-d5">
-        <div class="step-dot">04</div>
-        <div class="step-title">Deliver</div>
-        <div class="step-desc">Site supervision to handover. Reality exceeds the render.</div>
-      </div>
+      <% processSteps.forEach(function(step, i) { %>
+        <div class="process-step reveal reveal-d<%= i + 2 %>">
+          <div class="step-dot"><%= step.stepNumber %></div>
+          <div class="step-title"><%= step.title %></div>
+          <div class="step-desc"><%= step.description %></div>
+        </div>
+      <% }); %>
     </div>
   </div>
 </section>
@@ -308,22 +216,12 @@
 <!-- ═══ STATS ═══ -->
 <section class="stats" data-dark-section>
   <div class="stats-grid">
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="300">0</div>
-      <div class="stat-label">Projects Completed</div>
-    </div>
-    <div class="stat-item reveal reveal-d1">
-      <div class="stat-number" data-count="15">0</div>
-      <div class="stat-label">Awards Won</div>
-    </div>
-    <div class="stat-item reveal reveal-d2">
-      <div class="stat-number" data-count="10">0</div>
-      <div class="stat-label">Years of Excellence</div>
-    </div>
-    <div class="stat-item reveal reveal-d3">
-      <div class="stat-number" data-count="50">0</div>
-      <div class="stat-label">Design Professionals</div>
-    </div>
+    <% stats.forEach(function(stat, i) { %>
+      <div class="stat-item reveal<%= i > 0 ? ' reveal-d' + i : '' %>">
+        <div class="stat-number" data-count="<%= stat.count %>" data-suffix="<%= stat.suffix %>">0</div>
+        <div class="stat-label"><%= stat.label %></div>
+      </div>
+    <% }); %>
   </div>
 </section>
 

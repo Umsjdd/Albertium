@@ -303,21 +303,13 @@
     <h2 class="section-heading reveal">What Guides Us</h2>
   </div>
   <div class="values-grid">
-    <div class="value-card reveal reveal-d1">
-      <div class="value-number">01</div>
-      <h3 class="value-title">Innovation</h3>
-      <p class="value-desc">Pushing boundaries while respecting context. Every project explores new possibilities.</p>
-    </div>
-    <div class="value-card reveal reveal-d2">
-      <div class="value-number">02</div>
-      <h3 class="value-title">Sustainability</h3>
-      <p class="value-desc">Eco-conscious design at every scale. Materials and methods that respect the planet.</p>
-    </div>
-    <div class="value-card reveal reveal-d3">
-      <div class="value-number">03</div>
-      <h3 class="value-title">Collaboration</h3>
-      <p class="value-desc">Great architecture is a conversation. We design with you, not just for you.</p>
-    </div>
+    <% values.forEach(function(value, i) { %>
+      <div class="value-card reveal reveal-d<%= i + 1 %>">
+        <div class="value-number"><%= value.number %></div>
+        <h3 class="value-title"><%= value.title %></h3>
+        <p class="value-desc"><%= value.description %></p>
+      </div>
+    <% }); %>
   </div>
 </section>
 
@@ -331,38 +323,16 @@
     <h2 class="section-heading light reveal">The People Behind the Plans</h2>
   </div>
   <div class="team-grid">
-    <div class="team-card reveal reveal-d1" data-cursor-text="Profile">
-      <div class="team-card-bg team-card-bg--1"></div>
-      <div class="team-card-overlay"></div>
-      <div class="team-card-info">
-        <div class="team-card-name">Gerard Albert</div>
-        <div class="team-card-role">Founder &amp; Principal Architect</div>
+    <% team.forEach(function(member, i) { %>
+      <div class="team-card reveal reveal-d<%= i + 1 %>" data-cursor-text="Profile">
+        <div class="team-card-bg team-card-bg--<%= member.gradientVariant %>"></div>
+        <div class="team-card-overlay"></div>
+        <div class="team-card-info">
+          <div class="team-card-name"><%= member.name %></div>
+          <div class="team-card-role"><%= member.role %></div>
+        </div>
       </div>
-    </div>
-    <div class="team-card reveal reveal-d2" data-cursor-text="Profile">
-      <div class="team-card-bg team-card-bg--2"></div>
-      <div class="team-card-overlay"></div>
-      <div class="team-card-info">
-        <div class="team-card-name">Sarah Mitchell</div>
-        <div class="team-card-role">Design Director</div>
-      </div>
-    </div>
-    <div class="team-card reveal reveal-d3" data-cursor-text="Profile">
-      <div class="team-card-bg team-card-bg--3"></div>
-      <div class="team-card-overlay"></div>
-      <div class="team-card-info">
-        <div class="team-card-name">David Chen</div>
-        <div class="team-card-role">Head of Sustainability</div>
-      </div>
-    </div>
-    <div class="team-card reveal reveal-d4" data-cursor-text="Profile">
-      <div class="team-card-bg team-card-bg--4"></div>
-      <div class="team-card-overlay"></div>
-      <div class="team-card-info">
-        <div class="team-card-name">Emma Richards</div>
-        <div class="team-card-role">Project Manager</div>
-      </div>
-    </div>
+    <% }); %>
   </div>
 </section>
 
@@ -377,42 +347,14 @@
     <h2 class="section-heading reveal">Our Journey</h2>
   </div>
   <div class="timeline">
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2014</div>
-      <div class="timeline-title">Studio Founded</div>
-      <div class="timeline-desc">Gerard Albert establishes Albertium with a vision for sustainable, human-centred architecture.</div>
-    </div>
-    <div class="timeline-item reveal reveal-d1">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2016</div>
-      <div class="timeline-title">First Award</div>
-      <div class="timeline-desc">Recognised for sustainable residential design, affirming our commitment to eco-conscious practice.</div>
-    </div>
-    <div class="timeline-item reveal reveal-d2">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2018</div>
-      <div class="timeline-title">100 Projects</div>
-      <div class="timeline-desc">A milestone of completed works across residential, commercial, and cultural sectors.</div>
-    </div>
-    <div class="timeline-item reveal reveal-d3">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2020</div>
-      <div class="timeline-title">Team Expands</div>
-      <div class="timeline-desc">The studio grows to 30+ professionals, bringing new disciplines and perspectives.</div>
-    </div>
-    <div class="timeline-item reveal reveal-d4">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2022</div>
-      <div class="timeline-title">International Work</div>
-      <div class="timeline-desc">First projects outside the UK, extending our design philosophy across borders.</div>
-    </div>
-    <div class="timeline-item reveal reveal-d5">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2024</div>
-      <div class="timeline-title">300+ Projects</div>
-      <div class="timeline-desc">A decade of architectural excellence, shaping spaces that matter around the world.</div>
-    </div>
+    <% timeline.forEach(function(entry, i) { %>
+      <div class="timeline-item reveal<%= i > 0 ? ' reveal-d' + i : '' %>">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year"><%= entry.year %></div>
+        <div class="timeline-title"><%= entry.title %></div>
+        <div class="timeline-desc"><%= entry.description %></div>
+      </div>
+    <% }); %>
   </div>
 </section>
 

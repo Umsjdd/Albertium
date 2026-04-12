@@ -1,32 +1,85 @@
 import type { Express } from "express";
+import {
+  getSiteSettings,
+  listProjects,
+  listServicesWithFeatures,
+  listStudioValues,
+  listTeamMembers,
+  listTimelineEntries,
+  listStats,
+  listProcessSteps,
+} from "../storage.ts";
 
 /**
- * Public page routes.
- *
- * Today these just render the EJS templates with no data — the templates
- * still contain their original hardcoded content. The next milestone is to
- * load site content from Postgres (projects, team, services, etc.) and pass
- * it as locals to res.render() here, replacing the hardcoded HTML sections
- * with EJS loops.
+ * Public page routes. Each one fetches its data from Postgres in parallel
+ * and hands it to the EJS template as locals. The templates loop over the
+ * data to render the cards/lists that were previously hardcoded.
  */
 export function registerPageRoutes(app: Express): void {
-  app.get("/", (_req, res) => {
-    res.render("index");
+  app.get("/", async (_req, res, next) => {
+    try {
+      const [settings, projects, stats] = await Promise.all([
+        getSiteSettings(),
+        listProjects(),
+        listStats(),
+      ]);
+      res.render("index", {
+        settings,
+        projects,
+        featuredProjects: projects.filter((p) => p.featured),
+        stats,
+      });
+    } catch (err) {
+      next(err);
+    }
   });
 
-  app.get("/about", (_req, res) => {
-    res.render("about");
+  app.get("/about", async (_req, res, next) => {
+    try {
+      const [settings, values, team, timeline] = await Promise.all([
+        getSiteSettings(),
+        listStudioValues(),
+        listTeamMembers(),
+        listTimelineEntries(),
+      ]);
+      res.render("about", { settings, values, team, timeline });
+    } catch (err) {
+      next(err);
+    }
   });
 
-  app.get("/services", (_req, res) => {
-    res.render("services");
+  app.get("/services", async (_req, res, next) => {
+    try {
+      const [settings, services, stats, processSteps] = await Promise.all([
+        getSiteSettings(),
+        listServicesWithFeatures(),
+        listStats(),
+        listProcessSteps(),
+      ]);
+      res.render("services", { settings, services, stats, processSteps });
+    } catch (err) {
+      next(err);
+    }
   });
 
-  app.get("/projects", (_req, res) => {
-    res.render("projects");
+  app.get("/projects", async (_req, res, next) => {
+    try {
+      const [settings, projects] = await Promise.all([
+        getSiteSettings(),
+        listProjects(),
+      ]);
+      res.render("projects", { settings, projects });
+    } catch (err) {
+      next(err);
+    }
   });
 
-  app.get("/contact", (_req, res) => {
-    res.render("contact");
+  app.get("/contact", async (_req, res, next) => {
+    try {
+      const settings = await getSiteSettings();
+      res.render("contact", { settings });
+    } catch (err) {
+      next(err);
+    }
   });
 }

@@ -154,13 +154,14 @@
     function animateCounter(el, target) {
       const duration = 2000;
       const start = performance.now();
+      const suffix = el.dataset.suffix || '';
 
       function update(now) {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = Math.round(eased * target);
-        el.textContent = current + '+';
+        el.textContent = current + suffix;
         if (progress < 1) requestAnimationFrame(update);
       }
       requestAnimationFrame(update);
