@@ -373,7 +373,7 @@
   })();
 
   // ═══ ACTIVE NAV LINK ═══
-  const currentPage = window.location.pathname.split('/').pop() || 'demo.html';
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(link => {
     if (link.getAttribute('href') === currentPage) {
       link.style.color = 'var(--accent)';
