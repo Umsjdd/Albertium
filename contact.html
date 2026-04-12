@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALBERTIUM — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ═══ CONTACT LAYOUT ═══ */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: clamp(40px, 6vw, 80px);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.contact-info-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.contact-info-item:last-child { border-bottom: none; }
+.ci-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.ci-value {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+.ci-value a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ci-value a:hover { color: var(--accent); }
+
+.social-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 32px;
+}
+.social-links a {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.social-links a:hover { color: var(--accent); }
+
+/* ═══ CONTACT MAP PLACEHOLDER (in left column) ═══ */
+.contact-map-small {
+  margin-top: 32px;
+  width: 100%;
+  height: 200px;
+  background: #e8ecf2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ═══ INLINE FORM CARD ═══ */
+.inline-form {
+  background: #fff;
+  border-radius: 16px;
+  padding: clamp(32px, 4vw, 48px);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.05);
+}
+
+/* Inline form progress */
+.inline-progress {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.inline-progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--border-light);
+  border-radius: 2px;
+  transition: background 0.4s ease;
+}
+.inline-progress-bar.active {
+  background: var(--accent);
+}
+
+/* Inline form steps */
+.inline-step {
+  display: none;
+}
+.inline-step.active {
+  display: block;
+}
+.inline-step-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.inline-step-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+/* Inline option grid */
+.inline-option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.inline-option-btn {
+  padding: 16px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.inline-option-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.inline-option-btn.selected {
+  border-color: var(--accent);
+  background: rgba(37,99,235,0.06);
+  color: var(--accent);
+}
+
+/* Inline form groups */
+.inline-form .form-group {
+  margin-bottom: 20px;
+}
+.inline-form .form-group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.inline-form .form-group input,
+.inline-form .form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+.inline-form .form-group input:focus,
+.inline-form .form-group textarea:focus {
+  border-color: var(--accent);
+}
+.inline-form .form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Inline form navigation */
+.inline-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+.inline-back {
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.inline-back:hover { color: var(--text-primary); }
+.inline-next {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.inline-next:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Inline form success */
+.inline-success {
+  display: none;
+  text-align: center;
+  padding: 48px 24px;
+}
+.inline-success.active {
+  display: block;
+}
+.inline-success-check {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.inline-success-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.inline-success-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ═══ MAP SECTION ═══ */
+.map-placeholder {
+  height: 350px;
+  background: #1a1a2e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.map-placeholder .blueprint-grid { opacity: 0.3; }
+.map-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+.map-address {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.8);
+  position: relative;
+  z-index: 2;
+}
+
+/* ═══ CONTACT SECTION BG ═══ */
+.contact-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .inline-option-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SCROLL PROGRESS ═══ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ PRELOADER ═══ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-grid"></div>
+  <div class="preloader-text">ALBERTIUM</div>
+  <div class="preloader-line" id="preloaderLine"></div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="nav">
+  <a href="demo.html" class="nav-logo">ALBERTIUM</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a class="nav-cta" href="contact.html">Start Project</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="demo.html" class="mobile-link">Home</a>
+  <a href="about.html" class="mobile-link">About</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="blueprint-grid"></div>
+  <div class="arch-shapes">
+    <div class="arch-shape arch-shape--1 visible"></div>
+    <div class="arch-shape arch-shape--2 visible"></div>
+    <div class="arch-shape arch-shape--3 visible"></div>
+    <div class="arch-shape arch-shape--4 visible"></div>
+    <div class="arch-shape arch-shape--5 visible"></div>
+  </div>
+  <div class="page-hero-content">
+    <div class="section-label reveal">Get In Touch</div>
+    <h1 class="section-heading reveal">Let's Build Something Together</h1>
+    <p style="max-width: 560px; font-size: 1rem; line-height: 1.7; color: var(--text-secondary);" class="reveal reveal-d1">Whether you have a project in mind or just want to explore possibilities, we'd love to hear from you.</p>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ CONTACT LAYOUT ═══ -->
+<section class="contact-section section-padding">
+  <div class="blueprint-grid"></div>
+  <div class="contact-layout" style="position: relative; z-index: 2;">
+
+    <!-- Left Column: Contact Info -->
+    <div class="contact-info reveal">
+      <div class="contact-info-item">
+        <div class="ci-label">Visit Us</div>
+        <div class="ci-value">86 St. Barnabas Road</div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-label">Call Us</div>
+        <div class="ci-value"><a href="tel:07721632406">07721 632 406</a></div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-label">Email Us</div>
+        <div class="ci-value"><a href="mailto:info@albertium.com">info@albertium.com</a></div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-label">Office Hours</div>
+        <div class="ci-value">Mon &ndash; Fri: 9:00 &ndash; 18:00</div>
+      </div>
+
+      <div class="social-links">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">X</a>
+        <a href="#">YouTube</a>
+      </div>
+
+      <div class="contact-map-small">86 St. Barnabas Road</div>
+    </div>
+
+    <!-- Right Column: Inline Multi-Step Form -->
+    <div class="inline-form reveal reveal-d1" id="inlineForm">
+      <div class="inline-progress" id="inlineProgress">
+        <div class="inline-progress-bar active"></div>
+        <div class="inline-progress-bar"></div>
+        <div class="inline-progress-bar"></div>
+        <div class="inline-progress-bar"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="inline-step active" data-inline-step="1">
+        <div class="inline-step-label">Step 1 of 4</div>
+        <div class="inline-step-title">What type of project?</div>
+        <div class="inline-option-grid">
+          <button class="inline-option-btn" data-inline-value="Residential">Residential</button>
+          <button class="inline-option-btn" data-inline-value="Commercial">Commercial</button>
+          <button class="inline-option-btn" data-inline-value="Cultural">Cultural</button>
+          <button class="inline-option-btn" data-inline-value="Interior">Interior</button>
+          <button class="inline-option-btn" data-inline-value="Mixed-Use">Mixed-Use</button>
+          <button class="inline-option-btn" data-inline-value="Other">Other</button>
+        </div>
+        <div class="inline-nav">
+          <div></div>
+          <button class="inline-next" id="inlineStep1Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="inline-step" data-inline-step="2">
+        <div class="inline-step-label">Step 2 of 4</div>
+        <div class="inline-step-title">Estimated budget range?</div>
+        <div class="inline-option-grid">
+          <button class="inline-option-btn" data-inline-value="Under £250K">Under &pound;250K</button>
+          <button class="inline-option-btn" data-inline-value="£250K–£500K">&pound;250K &ndash; &pound;500K</button>
+          <button class="inline-option-btn" data-inline-value="£500K–£1M">&pound;500K &ndash; &pound;1M</button>
+          <button class="inline-option-btn" data-inline-value="£1M–£5M">&pound;1M &ndash; &pound;5M</button>
+          <button class="inline-option-btn" data-inline-value="£5M+">&pound;5M+</button>
+          <button class="inline-option-btn" data-inline-value="Not Sure Yet">Not Sure Yet</button>
+        </div>
+        <div class="inline-nav">
+          <button class="inline-back" data-inline-goto="1">Back</button>
+          <button class="inline-next" id="inlineStep2Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="inline-step" data-inline-step="3">
+        <div class="inline-step-label">Step 3 of 4</div>
+        <div class="inline-step-title">Project timeline?</div>
+        <div class="inline-option-grid">
+          <button class="inline-option-btn" data-inline-value="Immediate">Immediate</button>
+          <button class="inline-option-btn" data-inline-value="3–6 Months">3 &ndash; 6 Months</button>
+          <button class="inline-option-btn" data-inline-value="6–12 Months">6 &ndash; 12 Months</button>
+          <button class="inline-option-btn" data-inline-value="12+ Months">12+ Months</button>
+          <button class="inline-option-btn" data-inline-value="Flexible">Flexible</button>
+          <button class="inline-option-btn" data-inline-value="Urgent">Urgent</button>
+        </div>
+        <div class="inline-nav">
+          <button class="inline-back" data-inline-goto="2">Back</button>
+          <button class="inline-next" id="inlineStep3Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="inline-step" data-inline-step="4">
+        <div class="inline-step-label">Step 4 of 4</div>
+        <div class="inline-step-title">Your details</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Doe" id="inlineFormName">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com" id="inlineFormEmail">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+44 7XXX XXXXXX" id="inlineFormPhone">
+        </div>
+        <div class="form-group">
+          <label>Brief Description</label>
+          <textarea placeholder="Tell us about your project vision..." id="inlineFormDesc"></textarea>
+        </div>
+        <div class="inline-nav">
+          <button class="inline-back" data-inline-goto="3">Back</button>
+          <button class="inline-next" id="inlineFormSubmit">Submit</button>
+        </div>
+      </div>
+
+      <!-- Success State -->
+      <div class="inline-success" id="inlineSuccess">
+        <div class="inline-success-check">&#10003;</div>
+        <div class="inline-success-title">Thank You</div>
+        <p class="inline-success-desc">Your project enquiry has been received. Our team will be in touch within 24 hours to discuss your vision.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ MAP SECTION ═══ -->
+<section class="map-placeholder">
+  <div class="blueprint-grid"></div>
+  <div class="map-label">Our Studio</div>
+  <div class="map-address">86 St. Barnabas Road</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">ALBERTIUM</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <p>Sustainability meets creativity. Designing spaces that move people since 2014.</p>
+        <p style="margin-top: 16px;">86 St. Barnabas Road</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="demo.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" data-modal>Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@albertium.com">info@albertium.com</a>
+        <a href="tel:07721632406">07721 632 406</a>
+        <div style="margin-top: 16px;">
+          <a href="#" style="display: inline; margin-right: 16px;">Instagram</a>
+          <a href="#" style="display: inline; margin-right: 16px;">Facebook</a>
+          <a href="#" style="display: inline; margin-right: 16px;">X</a>
+          <a href="#" style="display: inline;">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Albertium. All rights reserved.</span>
+    <a href="#">Website by ShipYard Studios</a>
+  </div>
+</footer>
+
+<!-- ═══ CONTACT MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div id="modalForm">
+      <div class="modal-progress" id="modalProgress">
+        <div class="modal-progress-bar active"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="modal-step active" data-step="1">
+        <div class="modal-step-label">Step 1 of 4</div>
+        <div class="modal-step-title">What type of project?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Residential">Residential</button>
+          <button class="option-btn" data-value="Commercial">Commercial</button>
+          <button class="option-btn" data-value="Cultural">Cultural</button>
+          <button class="option-btn" data-value="Interior">Interior</button>
+          <button class="option-btn" data-value="Mixed-Use">Mixed-Use</button>
+          <button class="option-btn" data-value="Other">Other</button>
+        </div>
+        <div class="modal-nav">
+          <div></div>
+          <button class="modal-next" id="step1Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="modal-step" data-step="2">
+        <div class="modal-step-label">Step 2 of 4</div>
+        <div class="modal-step-title">Estimated budget range?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Under £250K">Under &pound;250K</button>
+          <button class="option-btn" data-value="£250K–£500K">&pound;250K &ndash; &pound;500K</button>
+          <button class="option-btn" data-value="£500K–£1M">&pound;500K &ndash; &pound;1M</button>
+          <button class="option-btn" data-value="£1M–£5M">&pound;1M &ndash; &pound;5M</button>
+          <button class="option-btn" data-value="£5M+">&pound;5M+</button>
+          <button class="option-btn" data-value="Not Sure Yet">Not Sure Yet</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="1">Back</button>
+          <button class="modal-next" id="step2Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="modal-step" data-step="3">
+        <div class="modal-step-label">Step 3 of 4</div>
+        <div class="modal-step-title">Project timeline?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Immediate">Immediate</button>
+          <button class="option-btn" data-value="3–6 Months">3 &ndash; 6 Months</button>
+          <button class="option-btn" data-value="6–12 Months">6 &ndash; 12 Months</button>
+          <button class="option-btn" data-value="12+ Months">12+ Months</button>
+          <button class="option-btn" data-value="Flexible">Flexible</button>
+          <button class="option-btn" data-value="Urgent">Urgent</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="2">Back</button>
+          <button class="modal-next" id="step3Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="modal-step" data-step="4">
+        <div class="modal-step-label">Step 4 of 4</div>
+        <div class="modal-step-title">Your details</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Doe" id="formName">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com" id="formEmail">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+44 7XXX XXXXXX" id="formPhone">
+        </div>
+        <div class="form-group">
+          <label>Brief Description</label>
+          <textarea placeholder="Tell us about your project vision..." id="formDesc"></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="3">Back</button>
+          <button class="modal-next" id="formSubmit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="success-check">&#10003;</div>
+      <div class="success-title">Thank You</div>
+      <p class="success-desc">Your project enquiry has been received. Our team will be in touch within 24 hours to discuss your vision.</p>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+
+<!-- ═══ INLINE FORM JS ═══ -->
+<script>
+(function() {
+  const form = document.getElementById('inlineForm');
+  if (!form) return;
+
+  const steps = form.querySelectorAll('.inline-step');
+  const progressBars = form.querySelectorAll('.inline-progress-bar');
+  const successEl = document.getElementById('inlineSuccess');
+  const progressContainer = document.getElementById('inlineProgress');
+
+  let currentStep = 1;
+  const formData = {};
+
+  // Option button selection
+  form.addEventListener('click', function(e) {
+    const btn = e.target.closest('.inline-option-btn');
+    if (!btn) return;
+
+    const step = btn.closest('.inline-step');
+    step.querySelectorAll('.inline-option-btn').forEach(function(b) {
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+  });
+
+  // Navigate to a step
+  function goToStep(stepNum) {
+    currentStep = stepNum;
+    steps.forEach(function(s) {
+      s.classList.remove('active');
+      if (parseInt(s.getAttribute('data-inline-step')) === stepNum) {
+        s.classList.add('active');
+      }
+    });
+    // Update progress
+    progressBars.forEach(function(bar, i) {
+      bar.classList.toggle('active', i < stepNum);
+    });
+  }
+
+  // Back buttons
+  form.querySelectorAll('.inline-back').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var goto = parseInt(btn.getAttribute('data-inline-goto'));
+      goToStep(goto);
+    });
+  });
+
+  // Step 1 Next
+  document.getElementById('inlineStep1Next').addEventListener('click', function() {
+    var selected = form.querySelector('.inline-step[data-inline-step="1"] .inline-option-btn.selected');
+    if (!selected) return;
+    formData.projectType = selected.getAttribute('data-inline-value');
+    goToStep(2);
+  });
+
+  // Step 2 Next
+  document.getElementById('inlineStep2Next').addEventListener('click', function() {
+    var selected = form.querySelector('.inline-step[data-inline-step="2"] .inline-option-btn.selected');
+    if (!selected) return;
+    formData.budget = selected.getAttribute('data-inline-value');
+    goToStep(3);
+  });
+
+  // Step 3 Next
+  document.getElementById('inlineStep3Next').addEventListener('click', function() {
+    var selected = form.querySelector('.inline-step[data-inline-step="3"] .inline-option-btn.selected');
+    if (!selected) return;
+    formData.timeline = selected.getAttribute('data-inline-value');
+    goToStep(4);
+  });
+
+  // Submit
+  document.getElementById('inlineFormSubmit').addEventListener('click', function() {
+    var name = document.getElementById('inlineFormName').value.trim();
+    var email = document.getElementById('inlineFormEmail').value.trim();
+    if (!name || !email) return;
+
+    formData.name = name;
+    formData.email = email;
+    formData.phone = document.getElementById('inlineFormPhone').value.trim();
+    formData.description = document.getElementById('inlineFormDesc').value.trim();
+
+    // Hide steps and progress, show success
+    steps.forEach(function(s) { s.classList.remove('active'); });
+    progressContainer.style.display = 'none';
+    successEl.classList.add('active');
+
+    console.log('Inline form submitted:', formData);
+  });
+})();
+</script>
+
+</body>
+</html>

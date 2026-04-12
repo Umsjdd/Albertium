@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALBERTIUM — Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ═══ FILTER BAR ═══ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 40px clamp(24px, 6vw, 80px);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.filter-btn {
+  padding: 10px 22px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+/* ═══ PROJECTS GRID ═══ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 clamp(24px, 6vw, 80px) clamp(80px, 10vw, 120px);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.pg-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+.pg-card.featured {
+  grid-column: span 2;
+  aspect-ratio: 16/10;
+}
+.pg-card.hidden {
+  display: none;
+}
+.pg-card-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s ease;
+}
+.pg-card:hover .pg-card-bg { transform: scale(1.06); }
+.pg-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent);
+  transition: background 0.3s ease;
+}
+.pg-card:hover .pg-card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1));
+}
+.pg-card-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px;
+  z-index: 2;
+}
+.pg-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.pg-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.pg-meta {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .projects-grid { grid-template-columns: 1fr 1fr; }
+  .pg-card.featured { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .pg-card.featured { grid-column: span 1; aspect-ratio: 4/5; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SCROLL PROGRESS ═══ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ PRELOADER ═══ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-grid"></div>
+  <div class="preloader-text">ALBERTIUM</div>
+  <div class="preloader-line" id="preloaderLine"></div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="nav">
+  <a href="demo.html" class="nav-logo">ALBERTIUM</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a class="nav-cta" href="contact.html">Start Project</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="demo.html" class="mobile-link">Home</a>
+  <a href="about.html" class="mobile-link">About</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="blueprint-grid"></div>
+  <div class="arch-shapes">
+    <div class="arch-shape arch-shape--1 visible"></div>
+    <div class="arch-shape arch-shape--2 visible"></div>
+    <div class="arch-shape arch-shape--3 visible"></div>
+    <div class="arch-shape arch-shape--4 visible"></div>
+  </div>
+  <div class="page-hero-content">
+    <div class="section-label reveal">Our Portfolio</div>
+    <h1 class="section-heading reveal">300+ Projects. One Standard: Excellence.</h1>
+    <p style="max-width: 560px; font-size: 1rem; line-height: 1.7; color: var(--text-secondary);" class="reveal reveal-d1">From residential to commercial, cultural to sustainable &mdash; every project reflects our commitment to thoughtful design.</p>
+  </div>
+</section>
+
+<!-- ═══ FILTER BAR ═══ -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="residential">Residential</button>
+  <button class="filter-btn" data-filter="commercial">Commercial</button>
+  <button class="filter-btn" data-filter="cultural">Cultural</button>
+  <button class="filter-btn" data-filter="interior">Interior</button>
+  <button class="filter-btn" data-filter="sustainable">Sustainable</button>
+</div>
+
+<!-- ═══ PROJECTS GRID ═══ -->
+<div class="projects-grid">
+
+  <!-- 1. The Meridian House — Featured -->
+  <div class="pg-card featured reveal" data-category="residential" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2c3e6b, #0f1a30);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Residential</span>
+      <h3 class="pg-title">The Meridian House</h3>
+      <p class="pg-meta">London, 2024</p>
+    </div>
+  </div>
+
+  <!-- 2. Azure Commercial Tower -->
+  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3b5998, #0d1f3c);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Commercial</span>
+      <h3 class="pg-title">Azure Commercial Tower</h3>
+      <p class="pg-meta">Manchester, 2023</p>
+    </div>
+  </div>
+
+  <!-- 3. St. Barnabas Cultural Centre -->
+  <div class="pg-card reveal" data-category="cultural" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #4a6fa5, #162d47);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Cultural</span>
+      <h3 class="pg-title">St. Barnabas Cultural Centre</h3>
+      <p class="pg-meta">Birmingham, 2023</p>
+    </div>
+  </div>
+
+  <!-- 4. The Ivory Residence -->
+  <div class="pg-card reveal" data-category="residential" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2e5266, #0d2230);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Residential</span>
+      <h3 class="pg-title">The Ivory Residence</h3>
+      <p class="pg-meta">Edinburgh, 2022</p>
+    </div>
+  </div>
+
+  <!-- 5. Nexus Business Park -->
+  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3d5a80, #111d2e);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Commercial</span>
+      <h3 class="pg-title">Nexus Business Park</h3>
+      <p class="pg-meta">Leeds, 2022</p>
+    </div>
+  </div>
+
+  <!-- 6. Green Terrace Villas — Featured -->
+  <div class="pg-card featured reveal" data-category="sustainable" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #2d6b4f, #0f3024);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Sustainable</span>
+      <h3 class="pg-title">Green Terrace Villas</h3>
+      <p class="pg-meta">Bristol, 2023</p>
+    </div>
+  </div>
+
+  <!-- 7. The Atrium Gallery -->
+  <div class="pg-card reveal" data-category="cultural" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #5c4a82, #1f1535);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Cultural</span>
+      <h3 class="pg-title">The Atrium Gallery</h3>
+      <p class="pg-meta">Liverpool, 2021</p>
+    </div>
+  </div>
+
+  <!-- 8. Zenith Apartments -->
+  <div class="pg-card reveal" data-category="residential" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #4a5d7a, #1a2538);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Residential</span>
+      <h3 class="pg-title">Zenith Apartments</h3>
+      <p class="pg-meta">Glasgow, 2024</p>
+    </div>
+  </div>
+
+  <!-- 9. Horizon Office Campus -->
+  <div class="pg-card reveal" data-category="commercial" data-cursor-text="View">
+    <div class="pg-card-bg" style="background: linear-gradient(145deg, #3a6b8c, #122a3d);"></div>
+    <div class="pg-card-overlay"></div>
+    <div class="pg-card-content">
+      <span class="pg-tag">Commercial</span>
+      <h3 class="pg-title">Horizon Office Campus</h3>
+      <p class="pg-meta">Cardiff, 2022</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta section-padding">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <h2 class="cta-heading reveal">Have a Project in Mind?</h2>
+    <p class="cta-sub reveal reveal-d1">Let&rsquo;s transform your vision into architectural reality.</p>
+    <div class="cta-buttons reveal reveal-d2">
+      <button class="btn-white" data-modal>Start a Project</button>
+      <a href="tel:07721632406" class="btn-outline-white">Call Us: 07721 632 406</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">ALBERTIUM</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <p>Sustainability meets creativity. Designing spaces that move people since 2014.</p>
+        <p style="margin-top: 16px;">86 St. Barnabas Road</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="demo.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" data-modal>Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@albertium.com">info@albertium.com</a>
+        <a href="tel:07721632406">07721 632 406</a>
+        <div style="margin-top: 16px;">
+          <a href="#" style="display: inline; margin-right: 16px;">Instagram</a>
+          <a href="#" style="display: inline; margin-right: 16px;">Facebook</a>
+          <a href="#" style="display: inline; margin-right: 16px;">X</a>
+          <a href="#" style="display: inline;">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Albertium. All rights reserved.</span>
+    <a href="#">Website by ShipYard Studios</a>
+  </div>
+</footer>
+
+<!-- ═══ CONTACT MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div id="modalForm">
+      <div class="modal-progress" id="modalProgress">
+        <div class="modal-progress-bar active"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="modal-step active" data-step="1">
+        <div class="modal-step-label">Step 1 of 4</div>
+        <div class="modal-step-title">What type of project?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Residential">Residential</button>
+          <button class="option-btn" data-value="Commercial">Commercial</button>
+          <button class="option-btn" data-value="Cultural">Cultural</button>
+          <button class="option-btn" data-value="Interior">Interior</button>
+          <button class="option-btn" data-value="Mixed-Use">Mixed-Use</button>
+          <button class="option-btn" data-value="Other">Other</button>
+        </div>
+        <div class="modal-nav">
+          <div></div>
+          <button class="modal-next" id="step1Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="modal-step" data-step="2">
+        <div class="modal-step-label">Step 2 of 4</div>
+        <div class="modal-step-title">Estimated budget range?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Under £250K">Under &pound;250K</button>
+          <button class="option-btn" data-value="£250K–£500K">&pound;250K &ndash; &pound;500K</button>
+          <button class="option-btn" data-value="£500K–£1M">&pound;500K &ndash; &pound;1M</button>
+          <button class="option-btn" data-value="£1M–£5M">&pound;1M &ndash; &pound;5M</button>
+          <button class="option-btn" data-value="£5M+">&pound;5M+</button>
+          <button class="option-btn" data-value="Not Sure Yet">Not Sure Yet</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="1">Back</button>
+          <button class="modal-next" id="step2Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="modal-step" data-step="3">
+        <div class="modal-step-label">Step 3 of 4</div>
+        <div class="modal-step-title">Project timeline?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Immediate">Immediate</button>
+          <button class="option-btn" data-value="3–6 Months">3 &ndash; 6 Months</button>
+          <button class="option-btn" data-value="6–12 Months">6 &ndash; 12 Months</button>
+          <button class="option-btn" data-value="12+ Months">12+ Months</button>
+          <button class="option-btn" data-value="Flexible">Flexible</button>
+          <button class="option-btn" data-value="Urgent">Urgent</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="2">Back</button>
+          <button class="modal-next" id="step3Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="modal-step" data-step="4">
+        <div class="modal-step-label">Step 4 of 4</div>
+        <div class="modal-step-title">Your details</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Doe" id="formName">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com" id="formEmail">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+44 7XXX XXXXXX" id="formPhone">
+        </div>
+        <div class="form-group">
+          <label>Brief Description</label>
+          <textarea placeholder="Tell us about your project vision..." id="formDesc"></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="3">Back</button>
+          <button class="modal-next" id="formSubmit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="success-check">&#10003;</div>
+      <div class="success-title">Thank You</div>
+      <p class="success-desc">Your project enquiry has been received. Our team will be in touch within 24 hours to discuss your vision.</p>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ═══ FILTER LOGIC ═══
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.pg-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle active class
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.classList.remove('hidden');
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            });
+          });
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.classList.add('hidden');
+          }, 400);
+        }
+      });
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

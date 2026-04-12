@@ -1,0 +1,2846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALBERTIUM — Brand Redesign Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Raleway:wght@300;400;500;600&family=Archivo+Black&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&family=Poppins:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1a1a1a;
+    --bg-light: #f5f0eb;
+    --text-primary: #f5f0eb;
+    --text-dark: #1a1a1a;
+    --text-secondary: #b8b0a5;
+    --text-muted: #6b6560;
+    --accent: #c9a96e;
+    --accent-hover: #d4b578;
+    --border: rgba(255,255,255,0.08);
+    --red-accent: #a0544a;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+    --heading-transform: none;
+    --heading-spacing: -0.02em;
+    --heading-weight: 300;
+  }
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .deck {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: clamp(2rem, 5vw, 6rem);
+    overflow: hidden;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+  }
+
+  .slide-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .slide-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+  }
+
+  /* Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+  .reveal-delay-6 { transition-delay: 0.6s; }
+  .reveal-delay-7 { transition-delay: 0.7s; }
+  .reveal-delay-8 { transition-delay: 0.8s; }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Slide Counter */
+  .slide-counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    z-index: 100;
+    transition: color 0.4s ease;
+    pointer-events: none;
+  }
+  .slide-counter.dark-text {
+    color: var(--text-muted);
+  }
+
+  /* Navigation Dots */
+  .nav-dots {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+  }
+  .nav-dot:hover {
+    opacity: 0.6;
+  }
+  .nav-dot.active {
+    opacity: 1;
+    background: var(--accent);
+    transform: scale(1.4);
+  }
+
+  /* ===== SLIDE 1: COVER ===== */
+  .slide-cover {
+    background: var(--bg-primary);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.6;
+  }
+  .cover-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, var(--bg-primary) 80%);
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 10rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+  }
+
+  .cover-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0;
+  }
+
+  .cover-bottom {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    z-index: 2;
+  }
+
+  .cover-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 2rem auto;
+    opacity: 0.5;
+  }
+
+  /* ===== SLIDE 2: THE PROBLEM ===== */
+  .slide-problem {
+    background: var(--bg-primary);
+  }
+
+  .problem-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;
+    align-items: start;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .problem-left {
+    position: sticky;
+    top: 30vh;
+  }
+
+  .problem-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .problem-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: border-color 0.3s ease;
+  }
+  .problem-card:hover {
+    border-color: rgba(160, 84, 74, 0.3);
+  }
+
+  .problem-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--red-accent);
+    line-height: 1;
+    min-width: 2rem;
+  }
+
+  .problem-card h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+
+  .problem-card p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ===== SLIDE 3: THE OPPORTUNITY ===== */
+  .slide-opportunity {
+    background: var(--bg-primary);
+  }
+
+  .opportunity-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .opportunity-statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: 900px;
+    margin-bottom: 4rem;
+  }
+  .opportunity-statement em {
+    color: var(--text-primary);
+    font-style: normal;
+  }
+
+  .opportunity-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .pillar {
+    border-top: 1px solid var(--accent);
+    padding-top: 1.5rem;
+  }
+
+  .pillar h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .pillar p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  /* ===== SLIDE 4: THE VISION ===== */
+  .slide-vision {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .vision-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .vision-line-top, .vision-line-bottom {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+  }
+  .vision-line-bottom {
+    margin: 2rem auto 0;
+  }
+
+  .vision-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--text-dark);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+  }
+
+  .vision-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ===== SLIDE 5: BRAND DIRECTION ===== */
+  .slide-brand {
+    background: var(--bg-primary);
+    justify-content: flex-start;
+    padding-top: clamp(3rem, 6vh, 5rem);
+  }
+
+  .brand-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .brand-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .brand-col h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .brand-col-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .brand-col p {
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .color-palette {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .color-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .swatch-box {
+    width: 64px;
+    height: 48px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .swatch-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .swatch-hex {
+    font-size: 0.65rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .type-samples {
+    display: flex;
+    gap: 4rem;
+    align-items: baseline;
+  }
+
+  .type-sample-serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 300;
+    color: var(--text-primary);
+  }
+
+  .type-sample-sans {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .type-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  /* ===== SLIDE 6: UX STRATEGY ===== */
+  .slide-ux {
+    background: var(--bg-secondary);
+  }
+
+  .ux-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ux-principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .ux-principle {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    transition: border-color 0.3s ease;
+  }
+  .ux-principle:hover {
+    border-color: rgba(201, 169, 110, 0.2);
+  }
+
+  .ux-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.2rem;
+  }
+
+  .ux-principle h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .ux-principle p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  /* ===== SLIDE 7: SITE ARCHITECTURE ===== */
+  .slide-sitemap {
+    background: var(--bg-primary);
+  }
+
+  .sitemap-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .sitemap-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .sitemap-node {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    position: relative;
+    min-width: 160px;
+  }
+
+  .sitemap-node-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .sitemap-node-desc {
+    font-size: 0.68rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 200px;
+  }
+
+  .sitemap-home {
+    background: var(--bg-tertiary);
+    border-color: var(--accent);
+    margin-bottom: 0;
+  }
+
+  .sitemap-connector {
+    width: 1px;
+    height: 30px;
+    background: rgba(201, 169, 110, 0.3);
+  }
+
+  .sitemap-branches {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    padding-top: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sitemap-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .sitemap-h-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(201, 169, 110, 0.3);
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  .sitemap-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 0;
+  }
+
+  .sitemap-sub .sitemap-node {
+    background: var(--bg-primary);
+    border-color: rgba(201, 169, 110, 0.15);
+  }
+
+  /* ===== SLIDE 8: HOMEPAGE FLOW ===== */
+  .slide-homepage {
+    background: var(--bg-secondary);
+    justify-content: flex-start;
+    padding-top: clamp(3rem, 5vh, 5rem);
+  }
+
+  .homepage-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .flow-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 3rem;
+  }
+  .flow-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.65rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), rgba(201, 169, 110, 0.1));
+  }
+
+  .flow-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1rem 0;
+    position: relative;
+  }
+
+  .flow-item::before {
+    content: '';
+    position: absolute;
+    left: -2.6rem;
+    top: 1.45rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg-secondary);
+  }
+
+  .flow-step {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    min-width: 2rem;
+    padding-top: 0.15rem;
+  }
+
+  .flow-info h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .flow-info p {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ===== SLIDE 9: PORTFOLIO SYSTEM ===== */
+  .slide-portfolio {
+    background: var(--bg-primary);
+    justify-content: flex-start;
+    padding-top: clamp(3rem, 5vh, 5rem);
+  }
+
+  .portfolio-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .portfolio-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .portfolio-section h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .portfolio-section > p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .case-study-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .cs-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .cs-step-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 1.2rem;
+    padding-top: 0.1rem;
+  }
+
+  .cs-step-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+  }
+
+  .cs-step-desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .wireframe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .wireframe-block {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    aspect-ratio: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wireframe-block.tall {
+    grid-row: span 2;
+  }
+
+  /* ===== SLIDE 10: MOTION DESIGN ===== */
+  .slide-motion {
+    background: var(--bg-secondary);
+    justify-content: flex-start;
+    padding-top: clamp(3rem, 5vh, 5rem);
+  }
+
+  .motion-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .motion-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .motion-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .motion-card p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.2rem;
+  }
+
+  .motion-demo {
+    height: 80px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Parallax demo */
+  .parallax-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .parallax-layer {
+    width: 30px;
+    height: 60px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    animation: parallaxFloat 3s ease-in-out infinite;
+  }
+  .parallax-layer:nth-child(1) { animation-duration: 3s; background: rgba(201,169,110,0.1); }
+  .parallax-layer:nth-child(2) { animation-duration: 2.2s; animation-delay: 0.3s; height: 45px; background: rgba(201,169,110,0.15); }
+  .parallax-layer:nth-child(3) { animation-duration: 1.8s; animation-delay: 0.6s; height: 35px; background: rgba(201,169,110,0.2); }
+
+  @keyframes parallaxFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Reveal demo */
+  .reveal-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 20px;
+  }
+  .reveal-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--accent);
+    animation: revealGrow 2.5s ease-in-out infinite;
+    opacity: 0.7;
+  }
+  .reveal-bar:nth-child(1) { width: 0; animation-delay: 0s; }
+  .reveal-bar:nth-child(2) { width: 0; animation-delay: 0.2s; }
+  .reveal-bar:nth-child(3) { width: 0; animation-delay: 0.4s; }
+
+  @keyframes revealGrow {
+    0%, 10% { width: 0; opacity: 0; }
+    40%, 60% { width: 60px; opacity: 0.7; }
+    90%, 100% { width: 0; opacity: 0; }
+  }
+
+  /* Image transition demo */
+  .image-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-demo-box {
+    width: 100px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(201,169,110,0.3), rgba(201,169,110,0.1));
+    border-radius: 4px;
+    animation: clipReveal 3s ease-in-out infinite;
+  }
+  @keyframes clipReveal {
+    0%, 10% { clip-path: inset(0 100% 0 0); }
+    40%, 60% { clip-path: inset(0 0% 0 0); }
+    90%, 100% { clip-path: inset(0 0 0 100%); }
+  }
+
+  /* Micro-interaction demo */
+  .micro-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .micro-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: microPulse 2s ease-in-out infinite;
+  }
+  .micro-dot:nth-child(2) { animation-delay: 0.3s; }
+  .micro-dot:nth-child(3) { animation-delay: 0.6s; }
+  .micro-dot:nth-child(4) { animation-delay: 0.9s; }
+
+  @keyframes microPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.8); opacity: 1; }
+  }
+
+  /* ===== SLIDE 11: LEAD GENERATION ===== */
+  .slide-leads {
+    background: var(--bg-primary);
+    justify-content: flex-start;
+    padding-top: clamp(3rem, 5vh, 5rem);
+  }
+
+  .leads-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .form-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 2rem 0 3rem;
+    flex-wrap: wrap;
+  }
+
+  .form-step {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    min-width: 140px;
+    flex: 1;
+    max-width: 200px;
+    transition: border-color 0.3s ease;
+  }
+  .form-step:hover {
+    border-color: rgba(201, 169, 110, 0.3);
+  }
+
+  .form-step-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-step h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .form-arrow {
+    font-size: 1.2rem;
+    color: var(--accent);
+    padding: 0 0.5rem;
+    opacity: 0.5;
+  }
+
+  .cta-strategy {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-item {
+    padding: 1.2rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .cta-type {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+
+  .cta-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .leads-summary {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 700px;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+  }
+
+  /* ===== SLIDE 12: BEFORE VS AFTER ===== */
+  .slide-transform {
+    background: var(--bg-primary);
+  }
+
+  .transform-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .transform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 3rem;
+    margin-top: 1rem;
+  }
+
+  .transform-divider {
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .transform-col h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .transform-before h3 {
+    color: var(--text-muted);
+  }
+  .transform-after h3 {
+    color: var(--accent);
+  }
+
+  .transform-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .transform-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .transform-before .transform-item {
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+  .transform-before .transform-icon {
+    color: var(--text-muted);
+    opacity: 0.5;
+    font-size: 1rem;
+  }
+
+  .transform-after .transform-item {
+    color: var(--text-primary);
+    background: rgba(201,169,110,0.04);
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+  .transform-after .transform-icon {
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  /* ===== SLIDE 13: VALUE PROPOSITION ===== */
+  .slide-value {
+    background: var(--bg-secondary);
+  }
+
+  .value-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .value-blocks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .value-block {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+  }
+  .value-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), transparent);
+  }
+
+  .value-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .value-block p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .value-statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .value-statement em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* ===== SLIDE: STYLE DIRECTION ===== */
+  .slide-style {
+    background: var(--bg-primary);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .style-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .style-intro p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0.8rem auto 0;
+    line-height: 1.6;
+  }
+  .style-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+  .style-tab {
+    padding: 8px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .style-tab:hover { color: var(--text-secondary); border-color: rgba(255,255,255,0.15); }
+  .style-tab.active { color: var(--accent); border-color: var(--accent); background: rgba(201,169,110,0.08); }
+
+  .style-panel { display: none; }
+  .style-panel.active { display: block; }
+
+  /* Font options */
+  .font-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .font-option-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .font-option-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .font-card-preview {
+    padding: 2rem 1.8rem;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .font-card-preview .fc-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+  .font-card-preview .fc-heading {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .font-card-preview .fc-body {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    max-width: 320px;
+    margin-bottom: 1rem;
+  }
+  .font-card-preview .fc-btn {
+    display: inline-block;
+    padding: 8px 22px;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: fit-content;
+  }
+  .font-card-info {
+    padding: 0.8rem 1.2rem;
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .font-card-info .fc-name {
+    font-size: 0.7rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  .font-card-info .fc-tag {
+    font-size: 0.6rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Colour options */
+  .colour-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .colour-option-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .colour-option-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .colour-card-preview {
+    padding: 2rem 1.8rem;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .colour-card-preview .cc-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: auto;
+  }
+  .colour-card-preview .cc-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .colour-card-preview .cc-body {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    opacity: 0.65;
+    margin-bottom: 1rem;
+    max-width: 300px;
+  }
+  .colour-card-preview .cc-btn {
+    display: inline-block;
+    padding: 8px 22px;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: fit-content;
+  }
+  .colour-palette-strip {
+    display: flex;
+    height: 36px;
+  }
+  .colour-palette-strip .cp-swatch {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    font-family: 'Space Grotesk', monospace;
+    letter-spacing: 0.03em;
+    transition: flex 0.3s ease;
+  }
+  .colour-palette-strip .cp-swatch:hover { flex: 2; }
+  .colour-card-info {
+    padding: 0.8rem 1.2rem;
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .colour-card-info .cc-name {
+    font-size: 0.7rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  .colour-card-info .cc-feel {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ===== SLIDE 15: CLOSING ===== */
+  .slide-closing {
+    background: var(--bg-primary);
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .closing-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity: 0.5;
+  }
+  .closing-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, var(--bg-primary) 75%);
+  }
+
+  .closing-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .closing-line {
+    width: 50px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2.5rem;
+    opacity: 0.6;
+  }
+
+  .closing-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+  }
+
+  .closing-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .closing-email {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+    padding-bottom: 0.2rem;
+    transition: border-color 0.3s ease;
+  }
+  .closing-email:hover {
+    border-color: var(--accent);
+  }
+
+  .closing-line-bottom {
+    width: 50px;
+    height: 1px;
+    background: var(--accent);
+    margin: 2.5rem auto 0;
+    opacity: 0.3;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .problem-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .brand-columns,
+    .ux-principles,
+    .opportunity-pillars {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .motion-grid {
+      grid-template-columns: 1fr;
+    }
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+    .transform-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .transform-divider {
+      display: none;
+    }
+    .value-blocks {
+      grid-template-columns: 1fr;
+    }
+    .cta-strategy {
+      grid-template-columns: 1fr;
+    }
+    .font-options-grid,
+    .colour-options-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-flow {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-arrow {
+      transform: rotate(90deg);
+    }
+    .sitemap-branches {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .slide {
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+    .nav-dots {
+      display: none;
+    }
+    .slide-counter {
+      bottom: 1rem;
+      right: 1rem;
+    }
+    .type-samples {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .color-palette {
+      gap: 0.6rem;
+    }
+    .swatch-box {
+      width: 44px;
+      height: 36px;
+    }
+  }
+
+  /* ===== DYNAMIC THEME OVERRIDES ===== */
+  h1, h2, h3, h4,
+  .cover-title,
+  .slide-title,
+  .closing-heading,
+  .closing-brand,
+  .vision-quote,
+  .vision-sub,
+  .value-statement,
+  .homepage-step h4,
+  .portfolio-heading,
+  .casestudy-heading,
+  .ux-principle h3,
+  .brand-col h3,
+  .problem-card h4,
+  .opportunity-pillar h3,
+  .motion-card h3,
+  .transform-item,
+  .value-block h3,
+  .sitemap-page h4,
+  .service-name {
+    font-family: var(--font-heading) !important;
+    text-transform: var(--heading-transform);
+    letter-spacing: var(--heading-spacing);
+    font-weight: var(--heading-weight);
+  }
+  .slide-title {
+    font-weight: var(--heading-weight) !important;
+  }
+  .cover-title {
+    letter-spacing: 0.15em !important;
+  }
+
+  body,
+  .slide-label,
+  .cover-subtitle,
+  .cover-bottom,
+  .problem-card p,
+  .opportunity-pillar p,
+  .brand-col p,
+  .ux-principle p,
+  .sitemap-page p,
+  .homepage-step p,
+  .casestudy-step p,
+  .motion-card p,
+  .lead-explain,
+  .cta-item p,
+  .value-block p,
+  .closing-email,
+  .slide-counter,
+  .nav-dot,
+  .style-tab,
+  .font-card-info,
+  .colour-card-info {
+    font-family: var(--font-body) !important;
+  }
+
+  /* Smooth theme transition */
+  *, *::before, *::after {
+    transition: background-color 0.6s ease, color 0.5s ease, border-color 0.5s ease;
+  }
+  /* Don't transition scroll snap */
+  .deck, .slide { transition: none; }
+
+  /* Selected card states */
+  .font-option-card.selected {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .font-option-card.selected .font-card-info {
+    background: rgba(201,169,110,0.08);
+  }
+  .font-option-card.selected .font-card-info .fc-name::before {
+    content: '✓ ';
+    color: var(--accent);
+  }
+  .colour-option-card.selected {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .colour-option-card.selected .colour-card-info {
+    background: rgba(201,169,110,0.08);
+  }
+  .colour-option-card.selected .colour-card-info .cc-name::before {
+    content: '✓ ';
+    color: var(--accent);
+  }
+  .font-option-card, .colour-option-card { cursor: pointer; }
+
+  /* Internal watermark */
+  .watermark {
+    position: fixed;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    z-index: 150;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    pointer-events: none;
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .watermark.shifted { bottom: 58px; }
+
+  /* Selection bar */
+  .selection-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(20,20,20,0.92);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'Inter', sans-serif;
+  }
+  .selection-bar.visible { transform: translateY(0); }
+  .selection-bar .sel-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+  }
+  .selection-bar .sel-label {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  .selection-bar .sel-value {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  .selection-bar .sel-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+  .selection-bar .sel-preview {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .selection-bar .sel-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ===== SLIDE 1: COVER ===== -->
+  <section class="slide slide-cover" data-slide="1">
+    <div class="cover-grid"></div>
+    <div class="cover-content">
+      <div class="cover-line reveal reveal-delay-1"></div>
+      <h1 class="cover-title reveal reveal-delay-2">ALBERTIUM</h1>
+      <p class="cover-subtitle reveal reveal-delay-3">Digital Transformation &amp; Brand Redesign</p>
+    </div>
+    <div class="cover-bottom reveal reveal-delay-5">
+      Prepared by Umar Dayatar &middot; ShipYard Studios &middot; 2026
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 2: THE PROBLEM ===== -->
+  <section class="slide slide-problem" data-slide="2">
+    <div class="problem-layout">
+      <div class="problem-left reveal reveal-left">
+        <div class="slide-label">Identifying Gaps</div>
+        <h2 class="slide-title">The Problem</h2>
+        <p style="font-size:0.85rem;line-height:1.7;color:var(--text-secondary);max-width:320px;">Every great transformation begins with honest diagnosis. Here is what is holding the current digital presence back.</p>
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card reveal reveal-right reveal-delay-1">
+          <div class="problem-number">01</div>
+          <div>
+            <h4>Generic Branding</h4>
+            <p>The current identity fails to communicate premium positioning or differentiate from competitors.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-right reveal-delay-2">
+          <div class="problem-number">02</div>
+          <div>
+            <h4>Outdated User Experience</h4>
+            <p>No modern interactions, animations, or engagement patterns that today's clients expect.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-right reveal-delay-3">
+          <div class="problem-number">03</div>
+          <div>
+            <h4>Weak Visual Identity</h4>
+            <p>No cohesive design language across touchpoints. Typography, color, and imagery lack consistency.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-right reveal-delay-4">
+          <div class="problem-number">04</div>
+          <div>
+            <h4>No Portfolio Showcase</h4>
+            <p>300+ completed projects with zero visibility. The firm's best work is invisible to prospects.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-right reveal-delay-5">
+          <div class="problem-number">05</div>
+          <div>
+            <h4>Poor Lead Generation</h4>
+            <p>No structured conversion funnel. Potential clients leave without taking action.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 3: THE OPPORTUNITY ===== -->
+  <section class="slide slide-opportunity" data-slide="3">
+    <div class="opportunity-content">
+      <div class="slide-label reveal">Seizing the Moment</div>
+      <h2 class="slide-title reveal reveal-delay-1">The Opportunity</h2>
+      <p class="opportunity-statement reveal reveal-delay-2">
+        Albertium has the experience, the portfolio, and the reputation. <em>What's missing is a digital presence that matches.</em>
+      </p>
+      <div class="opportunity-pillars">
+        <div class="pillar reveal reveal-delay-3">
+          <h3>Brand Elevation</h3>
+          <p>Position Albertium alongside the world's most prestigious architecture studios. A brand that commands respect at first glance.</p>
+        </div>
+        <div class="pillar reveal reveal-delay-4">
+          <h3>Digital Showcase</h3>
+          <p>Transform 300+ projects into a compelling visual narrative that sells. Every project becomes a story of ambition realized.</p>
+        </div>
+        <div class="pillar reveal reveal-delay-5">
+          <h3>Lead Engine</h3>
+          <p>Convert website visitors into qualified, high-value project inquiries. A digital presence that works as hard as the team behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 4: THE VISION ===== -->
+  <section class="slide slide-vision" data-slide="4">
+    <div class="vision-content">
+      <div class="slide-label reveal" style="color:var(--accent);">Our North Star</div>
+      <div class="vision-line-top reveal reveal-delay-1"></div>
+      <blockquote class="vision-quote reveal reveal-delay-2">
+        "We envision a digital experience that doesn't just represent Albertium &mdash; it embodies the same precision, elegance, and ambition that defines every structure they create."
+      </blockquote>
+      <div class="vision-line-bottom reveal reveal-delay-3"></div>
+      <p class="vision-tagline reveal reveal-delay-4">A website that feels like walking through one of their buildings.</p>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 5: BRAND DIRECTION ===== -->
+  <section class="slide slide-brand" data-slide="5">
+    <div class="brand-content">
+      <div class="slide-label reveal">Design System</div>
+      <h2 class="slide-title reveal reveal-delay-1" style="margin-bottom:2.5rem;">Brand Direction</h2>
+
+      <div class="brand-columns">
+        <div class="brand-col reveal reveal-delay-2">
+          <h3>Positioning</h3>
+          <div class="brand-col-value">Luxury &middot; Modern &middot; Sustainable</div>
+          <p>Albertium occupies the intersection of timeless elegance and forward-thinking design. The brand should feel established yet innovative.</p>
+        </div>
+        <div class="brand-col reveal reveal-delay-3">
+          <h3>Tone of Voice</h3>
+          <div class="brand-col-value">Confident. Refined. Visionary.</div>
+          <p>We speak with authority but never arrogance. Every word is intentional, every message crafted to inspire trust and ambition.</p>
+        </div>
+        <div class="brand-col reveal reveal-delay-4">
+          <h3>Visual Language</h3>
+          <div class="brand-col-value">Cinematic. Architectural. Precise.</div>
+          <p>Dark, moody palettes. Generous whitespace. Typography that commands attention. Photography that tells stories.</p>
+        </div>
+      </div>
+
+      <div class="slide-label reveal reveal-delay-5" style="margin-top:1rem;">Color Palette</div>
+      <div class="color-palette reveal reveal-delay-5">
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#0A0A0A;"></div>
+          <span class="swatch-label">Obsidian</span>
+          <span class="swatch-hex">#0A0A0A</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#1A1A1A;"></div>
+          <span class="swatch-label">Carbon</span>
+          <span class="swatch-hex">#1A1A1A</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#C9A96E;"></div>
+          <span class="swatch-label">Antique Gold</span>
+          <span class="swatch-hex">#C9A96E</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#F5F0EB;"></div>
+          <span class="swatch-label">Ivory</span>
+          <span class="swatch-hex">#F5F0EB</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#B8B0A5;"></div>
+          <span class="swatch-label">Sandstone</span>
+          <span class="swatch-hex">#B8B0A5</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#6B6560;"></div>
+          <span class="swatch-label">Slate</span>
+          <span class="swatch-hex">#6B6560</span>
+        </div>
+      </div>
+
+      <div class="slide-label reveal reveal-delay-6">Typography</div>
+      <div class="type-samples reveal reveal-delay-6">
+        <div>
+          <span class="type-label">Display &amp; Headings</span>
+          <div class="type-sample-serif">Cormorant Garamond</div>
+        </div>
+        <div>
+          <span class="type-label">Body &amp; Interface</span>
+          <div class="type-sample-sans">Inter — The quick brown fox jumps over the lazy dog</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 6: STYLE DIRECTION ===== -->
+  <section class="slide slide-style" data-slide="6">
+    <div class="style-intro reveal">
+      <div class="slide-label">Your Choice</div>
+      <h2 class="slide-title" style="margin-bottom: 0.5rem;">Style Direction</h2>
+      <p>We've prepared four font pairings and four colour palettes. Choose what resonates with your brand.</p>
+    </div>
+
+    <div class="style-tabs reveal reveal-delay-1">
+      <button class="style-tab active" data-panel="fonts-panel">Fonts</button>
+      <button class="style-tab" data-panel="colours-panel">Colours</button>
+    </div>
+
+    <!-- FONTS PANEL -->
+    <div class="style-panel active" id="fonts-panel">
+      <div class="font-options-grid">
+        <!-- Option A -->
+        <div class="font-option-card reveal reveal-delay-2" data-font="a">
+          <div class="font-card-preview" style="background: linear-gradient(160deg, #0e0e0e 0%, #1a1715 100%);">
+            <div class="fc-label" style="font-family: 'Raleway', sans-serif; color: var(--accent);">Architecture · Design · Planning</div>
+            <div class="fc-heading" style="font-family: 'Playfair Display', serif; font-weight: 700; color: #f5f0eb;">Crafting Spaces That Define Generations</div>
+            <div class="fc-body" style="font-family: 'Raleway', sans-serif; color: #b8b0a5;">Where visionary architecture meets meticulous craftsmanship.</div>
+            <div class="fc-btn" style="font-family: 'Raleway', sans-serif; background: var(--accent); color: #0a0a0a;">Explore Our Work</div>
+          </div>
+          <div class="font-card-info">
+            <span class="fc-name">A · Playfair Display + Raleway</span>
+            <span class="fc-tag">Classic Luxury</span>
+          </div>
+        </div>
+        <!-- Option B -->
+        <div class="font-option-card reveal reveal-delay-3" data-font="b">
+          <div class="font-card-preview" style="background: linear-gradient(160deg, #0e0e0e 0%, #151518 100%);">
+            <div class="fc-label" style="font-family: 'DM Sans', sans-serif; color: var(--accent);">Architecture · Design · Planning</div>
+            <div class="fc-heading" style="font-family: 'Archivo Black', sans-serif; font-weight: 400; color: #f5f0eb; text-transform: uppercase; letter-spacing: -0.02em;">Crafting Spaces That Define Generations</div>
+            <div class="fc-body" style="font-family: 'DM Sans', sans-serif; color: #b8b0a5;">Where visionary architecture meets meticulous craftsmanship.</div>
+            <div class="fc-btn" style="font-family: 'DM Sans', sans-serif; background: var(--accent); color: #0a0a0a;">Explore Our Work</div>
+          </div>
+          <div class="font-card-info">
+            <span class="fc-name">B · Archivo Black + DM Sans</span>
+            <span class="fc-tag">Bold Modern</span>
+          </div>
+        </div>
+        <!-- Option C -->
+        <div class="font-option-card reveal reveal-delay-2" data-font="c">
+          <div class="font-card-preview" style="background: linear-gradient(160deg, #0e0e0e 0%, #14140f 100%);">
+            <div class="fc-label" style="font-family: 'Poppins', sans-serif; color: var(--accent);">Architecture · Design · Planning</div>
+            <div class="fc-heading" style="font-family: 'Bebas Neue', sans-serif; font-weight: 400; color: #f5f0eb; font-size: clamp(1.5rem, 2.5vw, 2.2rem); letter-spacing: 0.04em; text-transform: uppercase;">Crafting Spaces That Define Generations</div>
+            <div class="fc-body" style="font-family: 'Poppins', sans-serif; font-weight: 300; color: #b8b0a5;">Where visionary architecture meets meticulous craftsmanship.</div>
+            <div class="fc-btn" style="font-family: 'Poppins', sans-serif; background: var(--accent); color: #0a0a0a;">Explore Our Work</div>
+          </div>
+          <div class="font-card-info">
+            <span class="fc-name">C · Bebas Neue + Poppins</span>
+            <span class="fc-tag">Striking & Tall</span>
+          </div>
+        </div>
+        <!-- Option D -->
+        <div class="font-option-card reveal reveal-delay-3" data-font="d">
+          <div class="font-card-preview" style="background: linear-gradient(160deg, #0e0e0e 0%, #111118 100%);">
+            <div class="fc-label" style="font-family: 'Space Grotesk', sans-serif; color: var(--accent);">Architecture · Design · Planning</div>
+            <div class="fc-heading" style="font-family: 'Syne', sans-serif; font-weight: 700; color: #f5f0eb; letter-spacing: -0.03em;">Crafting Spaces That Define Generations</div>
+            <div class="fc-body" style="font-family: 'Space Grotesk', sans-serif; color: #b8b0a5;">Where visionary architecture meets meticulous craftsmanship.</div>
+            <div class="fc-btn" style="font-family: 'Space Grotesk', sans-serif; background: var(--accent); color: #0a0a0a;">Explore Our Work</div>
+          </div>
+          <div class="font-card-info">
+            <span class="fc-name">D · Syne + Space Grotesk</span>
+            <span class="fc-tag">Cutting Edge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLOURS PANEL -->
+    <div class="style-panel" id="colours-panel">
+      <div class="colour-options-grid">
+        <!-- Palette 1: Terracotta -->
+        <div class="colour-option-card reveal reveal-delay-2" data-colour="1">
+          <div class="colour-card-preview" style="background: linear-gradient(160deg, #2A2A2A 0%, #3a3028 100%);">
+            <div class="cc-label" style="font-family: 'Raleway', sans-serif; color: #C45D3E;">Albertium</div>
+            <div>
+              <div class="cc-heading" style="color: #FAF7F2;">Spaces Rooted in Purpose</div>
+              <div class="cc-body" style="color: #d4ccc0;">Architecture that honours the earth, designed for the way we truly live.</div>
+              <div class="cc-btn" style="background: #C45D3E; color: #FAF7F2;">Start Your Project</div>
+            </div>
+          </div>
+          <div class="colour-palette-strip">
+            <div class="cp-swatch" style="background: #FAF7F2; color: #2A2A2A;">#FAF7F2</div>
+            <div class="cp-swatch" style="background: #2A2A2A; color: #FAF7F2;">#2A2A2A</div>
+            <div class="cp-swatch" style="background: #C45D3E; color: #fff;">#C45D3E</div>
+            <div class="cp-swatch" style="background: #8B6F4E; color: #fff;">#8B6F4E</div>
+            <div class="cp-swatch" style="background: #E8E2D9; color: #2A2A2A;">#E8E2D9</div>
+          </div>
+          <div class="colour-card-info">
+            <span class="cc-name">1 · Warm Ivory + Terracotta</span>
+            <span class="cc-feel">Earthy & Organic</span>
+          </div>
+        </div>
+        <!-- Palette 2: Electric Blue -->
+        <div class="colour-option-card reveal reveal-delay-3" data-colour="2">
+          <div class="colour-card-preview" style="background: linear-gradient(160deg, #0D0D0D 0%, #111827 100%);">
+            <div class="cc-label" style="font-family: 'Raleway', sans-serif; color: #2563EB;">Albertium</div>
+            <div>
+              <div class="cc-heading" style="color: #FFFFFF;">Precision Meets Innovation</div>
+              <div class="cc-body" style="color: #94a3b8;">Clean lines, bold thinking. Architecture engineered for the future.</div>
+              <div class="cc-btn" style="background: #2563EB; color: #fff;">Start Your Project</div>
+            </div>
+          </div>
+          <div class="colour-palette-strip">
+            <div class="cp-swatch" style="background: #FFFFFF; color: #0D0D0D;">#FFFFFF</div>
+            <div class="cp-swatch" style="background: #0D0D0D; color: #fff;">#0D0D0D</div>
+            <div class="cp-swatch" style="background: #2563EB; color: #fff;">#2563EB</div>
+            <div class="cp-swatch" style="background: #64748B; color: #fff;">#64748B</div>
+            <div class="cp-swatch" style="background: #F1F5F9; color: #0D0D0D;">#F1F5F9</div>
+          </div>
+          <div class="colour-card-info">
+            <span class="cc-name">2 · Pure White + Electric Blue</span>
+            <span class="cc-feel">Minimal & Crisp</span>
+          </div>
+        </div>
+        <!-- Palette 3: Navy + Brass -->
+        <div class="colour-option-card reveal reveal-delay-2" data-colour="3">
+          <div class="colour-card-preview" style="background: linear-gradient(160deg, #0C1425 0%, #1E2D4A 100%);">
+            <div class="cc-label" style="font-family: 'Raleway', sans-serif; color: #B8924A;">Albertium</div>
+            <div>
+              <div class="cc-heading" style="color: #F0ECE3;">Legacy Built in Stone</div>
+              <div class="cc-body" style="color: #8a9ab5;">Timeless architecture for institutions, residences, and landmarks.</div>
+              <div class="cc-btn" style="background: #B8924A; color: #0C1425;">Start Your Project</div>
+            </div>
+          </div>
+          <div class="colour-palette-strip">
+            <div class="cp-swatch" style="background: #F0ECE3; color: #0C1425;">#F0ECE3</div>
+            <div class="cp-swatch" style="background: #0C1425; color: #F0ECE3;">#0C1425</div>
+            <div class="cp-swatch" style="background: #B8924A; color: #fff;">#B8924A</div>
+            <div class="cp-swatch" style="background: #1E2D4A; color: #F0ECE3;">#1E2D4A</div>
+            <div class="cp-swatch" style="background: #3A4F6F; color: #fff;">#3A4F6F</div>
+          </div>
+          <div class="colour-card-info">
+            <span class="cc-name">3 · Deep Navy + Brass</span>
+            <span class="cc-feel">Prestigious</span>
+          </div>
+        </div>
+        <!-- Palette 4: Emerald -->
+        <div class="colour-option-card reveal reveal-delay-3" data-colour="4">
+          <div class="colour-card-preview" style="background: linear-gradient(160deg, #0B0B0B 0%, #0f1a16 100%);">
+            <div class="cc-label" style="font-family: 'Raleway', sans-serif; color: #2D8B6F;">Albertium</div>
+            <div>
+              <div class="cc-heading" style="color: #EDEDED;">Design for a Living World</div>
+              <div class="cc-body" style="color: #7a8a82;">Sustainable architecture that doesn't compromise on beauty or craft.</div>
+              <div class="cc-btn" style="background: #2D8B6F; color: #fff;">Start Your Project</div>
+            </div>
+          </div>
+          <div class="colour-palette-strip">
+            <div class="cp-swatch" style="background: #EDEDED; color: #0B0B0B;">#EDEDED</div>
+            <div class="cp-swatch" style="background: #0B0B0B; color: #EDEDED;">#0B0B0B</div>
+            <div class="cp-swatch" style="background: #2D8B6F; color: #fff;">#2D8B6F</div>
+            <div class="cp-swatch" style="background: #1A1A1A; color: #EDEDED;">#1A1A1A</div>
+            <div class="cp-swatch" style="background: #4A7C6A; color: #fff;">#4A7C6A</div>
+          </div>
+          <div class="colour-card-info">
+            <span class="cc-name">4 · Off-Black + Emerald</span>
+            <span class="cc-feel">Sustainable & Bold</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 7: UX STRATEGY ===== -->
+  <section class="slide slide-ux" data-slide="7">
+    <div class="ux-content">
+      <div class="slide-label reveal">Experience Design</div>
+      <h2 class="slide-title reveal reveal-delay-1">UX Strategy</h2>
+      <div class="ux-principles">
+        <div class="ux-principle reveal reveal-delay-2">
+          <div class="ux-number">01</div>
+          <h3>Narrative Navigation</h3>
+          <p>Users don't browse &mdash; they experience. Each page tells a story, guiding visitors through Albertium's world with intentional pacing and rhythm.</p>
+        </div>
+        <div class="ux-principle reveal reveal-delay-3">
+          <div class="ux-number">02</div>
+          <h3>Visual-First Discovery</h3>
+          <p>Projects are discovered through imagery, not lists. Immersive visuals create emotional connection before a single word is read.</p>
+        </div>
+        <div class="ux-principle reveal reveal-delay-4">
+          <div class="ux-number">03</div>
+          <h3>Frictionless Conversion</h3>
+          <p>Every page naturally guides toward action. Strategic CTA placement ensures interested visitors always have a clear next step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 7: SITE ARCHITECTURE ===== -->
+  <section class="slide slide-sitemap" data-slide="8">
+    <div class="sitemap-content">
+      <div class="slide-label reveal">Information Architecture</div>
+      <h2 class="slide-title reveal reveal-delay-1">Site Architecture</h2>
+      <div class="sitemap-tree reveal reveal-delay-2">
+        <div class="sitemap-node sitemap-home">
+          <div class="sitemap-node-title">Home</div>
+          <div class="sitemap-node-desc">Immersive introduction. Hero, featured work, philosophy, services, social proof</div>
+        </div>
+        <div class="sitemap-connector"></div>
+        <div class="sitemap-h-line"></div>
+        <div class="sitemap-branches">
+          <div class="sitemap-branch">
+            <div class="sitemap-connector"></div>
+            <div class="sitemap-node">
+              <div class="sitemap-node-title">Projects</div>
+              <div class="sitemap-node-desc">Filterable portfolio grid. Category-based discovery</div>
+            </div>
+            <div class="sitemap-sub">
+              <div class="sitemap-connector"></div>
+              <div class="sitemap-node">
+                <div class="sitemap-node-title">Project Detail</div>
+                <div class="sitemap-node-desc">Deep-dive case studies. Narrative + gallery + specs</div>
+              </div>
+            </div>
+          </div>
+          <div class="sitemap-branch">
+            <div class="sitemap-connector"></div>
+            <div class="sitemap-node">
+              <div class="sitemap-node-title">About</div>
+              <div class="sitemap-node-desc">Studio story, team, values, timeline</div>
+            </div>
+          </div>
+          <div class="sitemap-branch">
+            <div class="sitemap-connector"></div>
+            <div class="sitemap-node">
+              <div class="sitemap-node-title">Services</div>
+              <div class="sitemap-node-desc">Detailed service offerings with process breakdown</div>
+            </div>
+          </div>
+          <div class="sitemap-branch">
+            <div class="sitemap-connector"></div>
+            <div class="sitemap-node">
+              <div class="sitemap-node-title">Contact</div>
+              <div class="sitemap-node-desc">Multi-step project inquiry form</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 8: HOMEPAGE FLOW ===== -->
+  <section class="slide slide-homepage" data-slide="9">
+    <div class="homepage-content">
+      <div class="slide-label reveal">Page Blueprint</div>
+      <h2 class="slide-title reveal reveal-delay-1">Homepage Flow</h2>
+      <div class="flow-timeline">
+        <div class="flow-item reveal reveal-delay-1">
+          <div class="flow-step">01</div>
+          <div class="flow-info">
+            <h4>Hero</h4>
+            <p>Fullscreen cinematic visual with minimal typography. Immediate emotional impact that sets the tone for the entire experience.</p>
+          </div>
+        </div>
+        <div class="flow-item reveal reveal-delay-2">
+          <div class="flow-step">02</div>
+          <div class="flow-info">
+            <h4>Philosophy</h4>
+            <p>Studio ethos in elegant prose. Two-column editorial layout that communicates depth and intentionality.</p>
+          </div>
+        </div>
+        <div class="flow-item reveal reveal-delay-3">
+          <div class="flow-step">03</div>
+          <div class="flow-info">
+            <h4>Featured Projects</h4>
+            <p>Curated 6-project grid. Interactive hover reveals with project titles, locations, and typology indicators.</p>
+          </div>
+        </div>
+        <div class="flow-item reveal reveal-delay-4">
+          <div class="flow-step">04</div>
+          <div class="flow-info">
+            <h4>Services</h4>
+            <p>4-pillar overview. Clean, confident presentation of core capabilities with subtle interactive elements.</p>
+          </div>
+        </div>
+        <div class="flow-item reveal reveal-delay-5">
+          <div class="flow-step">05</div>
+          <div class="flow-info">
+            <h4>Social Proof</h4>
+            <p>Key stats and client testimonials. Build trust and credibility through tangible evidence of excellence.</p>
+          </div>
+        </div>
+        <div class="flow-item reveal reveal-delay-6">
+          <div class="flow-step">06</div>
+          <div class="flow-info">
+            <h4>Call to Action</h4>
+            <p>Direct conversion prompt. "Start Your Project" — a clear, compelling endpoint for engaged visitors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 9: PORTFOLIO SYSTEM ===== -->
+  <section class="slide slide-portfolio" data-slide="10">
+    <div class="portfolio-content">
+      <div class="slide-label reveal">Showcase Engine</div>
+      <h2 class="slide-title reveal reveal-delay-1">Portfolio System</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-section reveal reveal-delay-2">
+          <h3>Grid View</h3>
+          <p>Masonry-inspired grid with category filters. Projects reveal on hover with title, location, and type. Designed for discovery and delight.</p>
+          <div class="wireframe-grid">
+            <div class="wireframe-block tall">Project<br>Image</div>
+            <div class="wireframe-block">Residential</div>
+            <div class="wireframe-block">Commercial</div>
+            <div class="wireframe-block">Cultural</div>
+            <div class="wireframe-block tall">Project<br>Image</div>
+            <div class="wireframe-block">Hospitality</div>
+          </div>
+        </div>
+        <div class="portfolio-section reveal reveal-delay-3">
+          <h3>Case Study Structure</h3>
+          <p>Each project is a narrative experience. Six sections guide visitors from first impression to deep understanding.</p>
+          <div class="case-study-steps">
+            <div class="cs-step">
+              <div class="cs-step-num">01</div>
+              <div>
+                <div class="cs-step-title">Hero Image</div>
+                <div class="cs-step-desc">Full-width project photography</div>
+              </div>
+            </div>
+            <div class="cs-step">
+              <div class="cs-step-num">02</div>
+              <div>
+                <div class="cs-step-title">Project Overview</div>
+                <div class="cs-step-desc">Type, location, year, area, status</div>
+              </div>
+            </div>
+            <div class="cs-step">
+              <div class="cs-step-num">03</div>
+              <div>
+                <div class="cs-step-title">Design Narrative</div>
+                <div class="cs-step-desc">The story behind the project</div>
+              </div>
+            </div>
+            <div class="cs-step">
+              <div class="cs-step-num">04</div>
+              <div>
+                <div class="cs-step-title">Image Gallery</div>
+                <div class="cs-step-desc">Cinematic photography sequence</div>
+              </div>
+            </div>
+            <div class="cs-step">
+              <div class="cs-step-num">05</div>
+              <div>
+                <div class="cs-step-title">Materials &amp; Details</div>
+                <div class="cs-step-desc">Specifications and finishes</div>
+              </div>
+            </div>
+            <div class="cs-step">
+              <div class="cs-step-num">06</div>
+              <div>
+                <div class="cs-step-title">Next Project</div>
+                <div class="cs-step-desc">Seamless navigation to continue browsing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 10: MOTION DESIGN ===== -->
+  <section class="slide slide-motion" data-slide="11">
+    <div class="motion-content">
+      <div class="slide-label reveal">Interactive Layer</div>
+      <h2 class="slide-title reveal reveal-delay-1">Motion Design</h2>
+      <div class="motion-grid">
+        <div class="motion-card reveal reveal-delay-2">
+          <h3>Parallax Scrolling</h3>
+          <p>Layered depth creates cinematic feel. Hero content moves at different speeds, creating a sense of dimension.</p>
+          <div class="motion-demo parallax-demo">
+            <div class="parallax-layer"></div>
+            <div class="parallax-layer"></div>
+            <div class="parallax-layer"></div>
+          </div>
+        </div>
+        <div class="motion-card reveal reveal-delay-3">
+          <h3>Reveal Animations</h3>
+          <p>Content elegantly enters the viewport. Staggered timing creates rhythm and guides the eye through the page.</p>
+          <div class="motion-demo reveal-demo">
+            <div class="reveal-bar"></div>
+            <div class="reveal-bar"></div>
+            <div class="reveal-bar"></div>
+          </div>
+        </div>
+        <div class="motion-card reveal reveal-delay-4">
+          <h3>Image Transitions</h3>
+          <p>Smooth scale, clip-path reveals, and overlay transitions on project imagery. Every image makes an entrance.</p>
+          <div class="motion-demo image-demo">
+            <div class="image-demo-box"></div>
+          </div>
+        </div>
+        <div class="motion-card reveal reveal-delay-5">
+          <h3>Micro-interactions</h3>
+          <p>Hover states, button animations, cursor effects. Every detail is considered, every interaction feels intentional.</p>
+          <div class="motion-demo micro-demo">
+            <div class="micro-dot"></div>
+            <div class="micro-dot"></div>
+            <div class="micro-dot"></div>
+            <div class="micro-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 11: LEAD GENERATION ===== -->
+  <section class="slide slide-leads" data-slide="12">
+    <div class="leads-content">
+      <div class="slide-label reveal">Conversion System</div>
+      <h2 class="slide-title reveal reveal-delay-1">Lead Generation</h2>
+
+      <div class="form-flow reveal reveal-delay-2">
+        <div class="form-step">
+          <div class="form-step-num">Step 1</div>
+          <h4>Project Type</h4>
+        </div>
+        <div class="form-arrow">&rarr;</div>
+        <div class="form-step">
+          <div class="form-step-num">Step 2</div>
+          <h4>Budget Range</h4>
+        </div>
+        <div class="form-arrow">&rarr;</div>
+        <div class="form-step">
+          <div class="form-step-num">Step 3</div>
+          <h4>Timeline</h4>
+        </div>
+        <div class="form-arrow">&rarr;</div>
+        <div class="form-step">
+          <div class="form-step-num">Step 4</div>
+          <h4>Contact Details</h4>
+        </div>
+      </div>
+
+      <div class="slide-label reveal reveal-delay-3" style="margin-top:1rem;">CTA Strategy</div>
+      <div class="cta-strategy reveal reveal-delay-3">
+        <div class="cta-item">
+          <div class="cta-type">Primary</div>
+          <div class="cta-text">"Start Your Project"</div>
+          <div class="cta-desc">Prominent placement. Above fold, end of pages. Drives qualified inquiries.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-type">Secondary</div>
+          <div class="cta-text">"View Our Work"</div>
+          <div class="cta-desc">Drive portfolio engagement. Build desire before conversion.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-type">Tertiary</div>
+          <div class="cta-text">"Get In Touch"</div>
+          <div class="cta-desc">Footer, navigation, and service pages. Always accessible.</div>
+        </div>
+      </div>
+
+      <div class="leads-summary reveal reveal-delay-4">
+        The multi-step approach qualifies leads before they reach the contact form, ensuring higher-quality inquiries and better conversion rates. Each step reduces friction while increasing commitment.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 12: BEFORE VS AFTER ===== -->
+  <section class="slide slide-transform" data-slide="13">
+    <div class="transform-content">
+      <div class="slide-label reveal">Side by Side</div>
+      <h2 class="slide-title reveal reveal-delay-1">The Transformation</h2>
+      <div class="transform-grid">
+        <div class="transform-col transform-before reveal reveal-left reveal-delay-2">
+          <h3>Before</h3>
+          <div class="transform-items">
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>Generic logo and branding</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>Static, dated layout</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>No portfolio visibility</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>No conversion strategy</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>No animations or interactions</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&times;</span>
+              <span>Forgettable user experience</span>
+            </div>
+          </div>
+        </div>
+        <div class="transform-divider"></div>
+        <div class="transform-col transform-after reveal reveal-right reveal-delay-3">
+          <h3>After</h3>
+          <div class="transform-items">
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>Premium brand identity</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>Cinematic, immersive design</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>World-class project showcase</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>Multi-step lead generation</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>Smooth scroll animations</span>
+            </div>
+            <div class="transform-item">
+              <span class="transform-icon">&#10003;</span>
+              <span>Memorable digital experience</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 13: VALUE PROPOSITION ===== -->
+  <section class="slide slide-value" data-slide="14">
+    <div class="value-content">
+      <div class="slide-label reveal">Why This Matters</div>
+      <h2 class="slide-title reveal reveal-delay-1">The Impact</h2>
+      <div class="value-blocks">
+        <div class="value-block reveal reveal-delay-2">
+          <h3>Trust</h3>
+          <p>A premium digital presence signals quality before a single meeting. First impressions are now your strongest asset.</p>
+        </div>
+        <div class="value-block reveal reveal-delay-3">
+          <h3>Perceived Value</h3>
+          <p>When your digital experience matches your architectural excellence, clients expect &mdash; and accept &mdash; premium pricing.</p>
+        </div>
+        <div class="value-block reveal reveal-delay-4">
+          <h3>Conversion</h3>
+          <p>Strategic UX and lead generation turn passive visitors into active project inquiries. Every click has purpose.</p>
+        </div>
+      </div>
+      <p class="value-statement reveal reveal-delay-5">
+        This isn't just a website redesign. It's a <em>business transformation tool</em> that works 24/7.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 14: CLOSING ===== -->
+  <section class="slide slide-closing" data-slide="15">
+    <div class="closing-grid"></div>
+    <div class="closing-content">
+      <div class="closing-line reveal reveal-delay-1"></div>
+      <h2 class="closing-heading reveal reveal-delay-2">Let's Build Something<br>Extraordinary.</h2>
+      <div class="closing-brand reveal reveal-delay-3">ALBERTIUM</div>
+      <a href="mailto:ud@shipyard.studios" class="closing-email reveal reveal-delay-4">ud@shipyard.studios</a>
+      <div class="closing-line-bottom reveal reveal-delay-5"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Slide Counter -->
+<div class="slide-counter" id="slideCounter">01 / 15</div>
+
+<!-- Navigation Dots -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- Internal Watermark -->
+<div class="watermark" id="watermark">For internal use only · Created by Umar Dayatar for Albertium Group</div>
+
+<!-- Selection Bar -->
+<div class="selection-bar" id="selectionBar">
+  <div class="sel-group">
+    <span class="sel-label">Font</span>
+    <span class="sel-value" id="selFont">—</span>
+  </div>
+  <div class="sel-divider"></div>
+  <div class="sel-group">
+    <span class="sel-label">Palette</span>
+    <span class="sel-value" id="selColour">—</span>
+  </div>
+  <div class="sel-divider"></div>
+  <div class="sel-group">
+    <span class="sel-label">Preview</span>
+    <div class="sel-preview" id="selSwatches"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const deck = document.getElementById('deck');
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  const dotsContainer = document.getElementById('navDots');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+
+  // Create navigation dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', () => {
+      slides[i].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.nav-dot');
+
+  function updateSlideCounter(index) {
+    const num = String(index + 1).padStart(2, '0');
+    const total = String(totalSlides).padStart(2, '0');
+    counter.textContent = num + ' / ' + total;
+
+    // Update active dot
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+
+    // Adjust counter color for light slides
+    const slideEl = slides[index];
+    if (slideEl.classList.contains('slide-vision')) {
+      counter.style.color = 'var(--text-muted)';
+    } else {
+      counter.style.color = '';
+    }
+
+    currentSlide = index;
+  }
+
+  // Intersection Observer for slide tracking and animations
+  const slideObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        const slideIndex = Array.from(slides).indexOf(entry.target);
+        updateSlideCounter(slideIndex);
+      }
+    });
+  }, {
+    root: deck,
+    threshold: 0.5
+  });
+
+  slides.forEach(slide => slideObserver.observe(slide));
+
+  // Intersection Observer for reveal animations
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    root: deck,
+    rootMargin: '-5% 0px -5% 0px',
+    threshold: 0.1
+  });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      const next = Math.min(currentSlide + 1, totalSlides - 1);
+      slides[next].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      const prev = Math.max(currentSlide - 1, 0);
+      slides[prev].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      slides[totalSlides - 1].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  // Style Direction tab switching
+  document.querySelectorAll('.style-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.style-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.style-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.getElementById(tab.dataset.panel);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // ═══════════════════════════════════════
+  // DYNAMIC THEME ENGINE
+  // ═══════════════════════════════════════
+  const root = document.documentElement;
+  const selBar = document.getElementById('selectionBar');
+  const selFont = document.getElementById('selFont');
+  const selColour = document.getElementById('selColour');
+  const selSwatches = document.getElementById('selSwatches');
+
+  let activeFont = null;
+  let activeColour = null;
+
+  const FONTS = {
+    a: {
+      name: 'Playfair + Raleway',
+      heading: "'Playfair Display', serif",
+      body: "'Raleway', sans-serif",
+      transform: 'none',
+      spacing: '-0.02em',
+      weight: '700'
+    },
+    b: {
+      name: 'Archivo + DM Sans',
+      heading: "'Archivo Black', sans-serif",
+      body: "'DM Sans', sans-serif",
+      transform: 'uppercase',
+      spacing: '-0.02em',
+      weight: '400'
+    },
+    c: {
+      name: 'Bebas Neue + Poppins',
+      heading: "'Bebas Neue', sans-serif",
+      body: "'Poppins', sans-serif",
+      transform: 'uppercase',
+      spacing: '0.04em',
+      weight: '400'
+    },
+    d: {
+      name: 'Syne + Space Grotesk',
+      heading: "'Syne', sans-serif",
+      body: "'Space Grotesk', sans-serif",
+      transform: 'none',
+      spacing: '-0.03em',
+      weight: '700'
+    }
+  };
+
+  const COLOURS = {
+    1: {
+      name: 'Ivory + Terracotta',
+      bgPrimary: '#2A2A2A',
+      bgSecondary: '#1f1f1f',
+      bgTertiary: '#333028',
+      bgLight: '#FAF7F2',
+      textPrimary: '#FAF7F2',
+      textDark: '#2A2A2A',
+      textSecondary: '#d4ccc0',
+      textMuted: '#8B6F4E',
+      accent: '#C45D3E',
+      accentHover: '#d06a4c',
+      border: 'rgba(250,247,242,0.1)',
+      redAccent: '#C45D3E',
+      swatches: ['#FAF7F2','#2A2A2A','#C45D3E','#8B6F4E','#E8E2D9']
+    },
+    2: {
+      name: 'White + Electric Blue',
+      bgPrimary: '#0D0D0D',
+      bgSecondary: '#111827',
+      bgTertiary: '#1a1f2e',
+      bgLight: '#F1F5F9',
+      textPrimary: '#FFFFFF',
+      textDark: '#0D0D0D',
+      textSecondary: '#94a3b8',
+      textMuted: '#64748B',
+      accent: '#2563EB',
+      accentHover: '#3b7cf5',
+      border: 'rgba(255,255,255,0.08)',
+      redAccent: '#ef4444',
+      swatches: ['#FFFFFF','#0D0D0D','#2563EB','#64748B','#F1F5F9']
+    },
+    3: {
+      name: 'Navy + Brass',
+      bgPrimary: '#0C1425',
+      bgSecondary: '#101b33',
+      bgTertiary: '#1E2D4A',
+      bgLight: '#F0ECE3',
+      textPrimary: '#F0ECE3',
+      textDark: '#0C1425',
+      textSecondary: '#8a9ab5',
+      textMuted: '#3A4F6F',
+      accent: '#B8924A',
+      accentHover: '#c9a35b',
+      border: 'rgba(240,236,227,0.1)',
+      redAccent: '#a0544a',
+      swatches: ['#F0ECE3','#0C1425','#B8924A','#1E2D4A','#3A4F6F']
+    },
+    4: {
+      name: 'Black + Emerald',
+      bgPrimary: '#0B0B0B',
+      bgSecondary: '#0f1a16',
+      bgTertiary: '#1A1A1A',
+      bgLight: '#EDEDED',
+      textPrimary: '#EDEDED',
+      textDark: '#0B0B0B',
+      textSecondary: '#7a8a82',
+      textMuted: '#4A7C6A',
+      accent: '#2D8B6F',
+      accentHover: '#38a683',
+      border: 'rgba(237,237,237,0.08)',
+      redAccent: '#a0544a',
+      swatches: ['#EDEDED','#0B0B0B','#2D8B6F','#1A1A1A','#4A7C6A']
+    }
+  };
+
+  function applyFont(key) {
+    const f = FONTS[key];
+    if (!f) return;
+    activeFont = key;
+    root.style.setProperty('--font-heading', f.heading);
+    root.style.setProperty('--font-body', f.body);
+    root.style.setProperty('--heading-transform', f.transform);
+    root.style.setProperty('--heading-spacing', f.spacing);
+    root.style.setProperty('--heading-weight', f.weight);
+
+    // Update selected state
+    document.querySelectorAll('.font-option-card').forEach(c => c.classList.remove('selected'));
+    const card = document.querySelector('.font-option-card[data-font="' + key + '"]');
+    if (card) card.classList.add('selected');
+
+    selFont.textContent = f.name;
+    updateSelectionBar();
+  }
+
+  function applyColour(key) {
+    const c = COLOURS[key];
+    if (!c) return;
+    activeColour = key;
+    root.style.setProperty('--bg-primary', c.bgPrimary);
+    root.style.setProperty('--bg-secondary', c.bgSecondary);
+    root.style.setProperty('--bg-tertiary', c.bgTertiary);
+    root.style.setProperty('--bg-light', c.bgLight);
+    root.style.setProperty('--text-primary', c.textPrimary);
+    root.style.setProperty('--text-dark', c.textDark);
+    root.style.setProperty('--text-secondary', c.textSecondary);
+    root.style.setProperty('--text-muted', c.textMuted);
+    root.style.setProperty('--accent', c.accent);
+    root.style.setProperty('--accent-hover', c.accentHover);
+    root.style.setProperty('--border', c.border);
+    root.style.setProperty('--red-accent', c.redAccent);
+
+    // Update selected state
+    document.querySelectorAll('.colour-option-card').forEach(c => c.classList.remove('selected'));
+    const card = document.querySelector('.colour-option-card[data-colour="' + key + '"]');
+    if (card) card.classList.add('selected');
+
+    // Update swatch preview
+    selColour.textContent = c.name;
+    selSwatches.innerHTML = '';
+    c.swatches.forEach(hex => {
+      const s = document.createElement('div');
+      s.className = 'sel-swatch';
+      s.style.background = hex;
+      selSwatches.appendChild(s);
+    });
+    updateSelectionBar();
+  }
+
+  const watermark = document.getElementById('watermark');
+  function updateSelectionBar() {
+    if (activeFont || activeColour) {
+      selBar.classList.add('visible');
+      watermark.classList.add('shifted');
+    }
+  }
+
+  // Click handlers for font cards
+  document.querySelectorAll('.font-option-card[data-font]').forEach(card => {
+    card.addEventListener('click', () => {
+      applyFont(card.dataset.font);
+    });
+  });
+
+  // Click handlers for colour cards
+  document.querySelectorAll('.colour-option-card[data-colour]').forEach(card => {
+    card.addEventListener('click', () => {
+      applyColour(card.dataset.colour);
+    });
+  });
+
+  // Initialize: make first slide elements visible
+  updateSlideCounter(0);
+})();
+</script>
+
+</body>
+</html>

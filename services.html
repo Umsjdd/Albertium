@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALBERTIUM — Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ═══ SERVICE DETAIL SECTIONS ═══ */
+.service-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.service-detail.reverse { direction: rtl; }
+.service-detail.reverse > * { direction: ltr; }
+.sd-visual {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.sd-visual-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+.sd-visual-line {
+  position: absolute;
+  top: 24px; left: 24px;
+  width: 40px; height: 40px;
+  border-left: 1.5px solid var(--accent);
+  border-top: 1.5px solid var(--accent);
+  opacity: 0.5;
+}
+.sd-content { }
+.sd-content h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.sd-content p {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.feature-list {
+  list-style: none;
+}
+.feature-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.feature-list li::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+/* Different gradient for each service visual */
+.sd-bg-1 { background: linear-gradient(145deg, #c7d2e4, #e8edf5); }
+.sd-bg-2 { background: linear-gradient(145deg, #b8d4c8, #d4e8de); }
+.sd-bg-3 { background: linear-gradient(145deg, #d4cce4, #e8e2f2); }
+.sd-bg-4 { background: linear-gradient(145deg, #ccd4e0, #dfe5ef); }
+
+/* ═══ DETAIL SECTION BACKGROUNDS ═══ */
+.detail-section {
+  position: relative;
+  overflow: hidden;
+}
+.detail-section:nth-child(odd) {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+.detail-section:nth-child(even) {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .service-detail { grid-template-columns: 1fr; }
+  .service-detail.reverse { direction: ltr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SCROLL PROGRESS ═══ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ PRELOADER ═══ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-grid"></div>
+  <div class="preloader-text">ALBERTIUM</div>
+  <div class="preloader-line" id="preloaderLine"></div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="nav">
+  <a href="demo.html" class="nav-logo">ALBERTIUM</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a class="nav-cta" href="contact.html">Start Project</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="demo.html" class="mobile-link">Home</a>
+  <a href="about.html" class="mobile-link">About</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="blueprint-grid"></div>
+  <div class="arch-shapes">
+    <div class="arch-shape arch-shape--1 visible"></div>
+    <div class="arch-shape arch-shape--2 visible"></div>
+    <div class="arch-shape arch-shape--3 visible"></div>
+    <div class="arch-shape arch-shape--4 visible"></div>
+    <div class="arch-shape arch-shape--5 visible"></div>
+  </div>
+  <div class="page-hero-content">
+    <div class="section-label reveal">Our Services</div>
+    <h1 class="section-heading reveal">End-to-End Architectural Excellence</h1>
+    <p style="max-width: 560px; font-size: 1rem; line-height: 1.7; color: var(--text-secondary);" class="reveal reveal-d1">Comprehensive design solutions from first sketch to final handover &mdash; every project guided by craft, sustainability, and an unwavering commitment to quality.</p>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ SERVICES OVERVIEW (dark) ═══ -->
+<section class="services section-padding" data-dark-section>
+  <div class="services-inner">
+    <div class="section-label reveal" style="color: var(--accent);">01 &mdash; What We Do</div>
+    <h2 class="section-heading light reveal">What We Do</h2>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-d1">
+        <div class="service-num">01</div>
+        <h3 class="service-title">Architectural Design</h3>
+        <p class="service-desc">Concept to completion. Buildings that balance innovation with timeless elegance.</p>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <div class="service-num">02</div>
+        <h3 class="service-title">Sustainable Design</h3>
+        <p class="service-desc">Eco-friendly materials. Energy-efficient spaces that respect the environment.</p>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <div class="service-num">03</div>
+        <h3 class="service-title">Interior Architecture</h3>
+        <p class="service-desc">Interiors that harmonize with their shell. Material, light, and spatial composition.</p>
+      </div>
+      <div class="service-card reveal reveal-d4">
+        <div class="service-num">04</div>
+        <h3 class="service-title">Consultation &amp; Planning</h3>
+        <p class="service-desc">Feasibility to planning approval. We navigate complexity so you don't have to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ SERVICE DETAIL 1: ARCHITECTURAL DESIGN ═══ -->
+<section class="detail-section section-padding">
+  <div class="blueprint-grid"></div>
+  <div class="service-detail" style="position: relative; z-index: 2;">
+    <div class="sd-visual reveal">
+      <div class="sd-visual-bg sd-bg-1 clip-reveal"></div>
+      <div class="sd-visual-line"></div>
+    </div>
+    <div class="sd-content">
+      <h3 class="reveal">Architectural Design</h3>
+      <p class="reveal reveal-d1">Every building begins with a conversation. We work closely with clients to understand their vision, then translate it into spaces that exceed expectations. From initial sketches through to construction documentation, our designs balance ambition with buildability.</p>
+      <ul class="feature-list">
+        <li class="reveal reveal-d2">Concept Development &amp; Feasibility</li>
+        <li class="reveal reveal-d3">Planning Applications &amp; Approvals</li>
+        <li class="reveal reveal-d4">Construction Documentation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ SERVICE DETAIL 2: SUSTAINABLE DESIGN ═══ -->
+<section class="detail-section section-padding">
+  <div class="blueprint-grid"></div>
+  <div class="service-detail reverse" style="position: relative; z-index: 2;">
+    <div class="sd-visual reveal">
+      <div class="sd-visual-bg sd-bg-2 clip-reveal"></div>
+      <div class="sd-visual-line"></div>
+    </div>
+    <div class="sd-content">
+      <h3 class="reveal">Sustainable Design</h3>
+      <p class="reveal reveal-d1">Sustainability isn't an add-on &mdash; it's woven into every decision. We select materials, orient buildings, and design systems that minimise environmental impact while maximising comfort and performance.</p>
+      <ul class="feature-list">
+        <li class="reveal reveal-d2">Energy Modelling &amp; Passive Design</li>
+        <li class="reveal reveal-d3">Material Lifecycle Analysis</li>
+        <li class="reveal reveal-d4">BREEAM &amp; Eco Certifications</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ SERVICE DETAIL 3: INTERIOR ARCHITECTURE ═══ -->
+<section class="detail-section section-padding">
+  <div class="blueprint-grid"></div>
+  <div class="service-detail" style="position: relative; z-index: 2;">
+    <div class="sd-visual reveal">
+      <div class="sd-visual-bg sd-bg-3 clip-reveal"></div>
+      <div class="sd-visual-line"></div>
+    </div>
+    <div class="sd-content">
+      <h3 class="reveal">Interior Architecture</h3>
+      <p class="reveal reveal-d1">The interior is where architecture meets daily life. We design spaces that feel as intentional inside as they look outside &mdash; where every surface, fixture, and sightline has been considered.</p>
+      <ul class="feature-list">
+        <li class="reveal reveal-d2">Spatial Planning &amp; Flow</li>
+        <li class="reveal reveal-d3">Material &amp; Finish Specification</li>
+        <li class="reveal reveal-d4">Furniture &amp; Lighting Design</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ SERVICE DETAIL 4: CONSULTATION & PLANNING ═══ -->
+<section class="detail-section section-padding">
+  <div class="blueprint-grid"></div>
+  <div class="service-detail reverse" style="position: relative; z-index: 2;">
+    <div class="sd-visual reveal">
+      <div class="sd-visual-bg sd-bg-4 clip-reveal"></div>
+      <div class="sd-visual-line"></div>
+    </div>
+    <div class="sd-content">
+      <h3 class="reveal">Consultation &amp; Planning</h3>
+      <p class="reveal reveal-d1">Navigating the planning process requires expertise and precision. We guide projects from initial feasibility through to full approval, handling the complexity so our clients can focus on their vision.</p>
+      <ul class="feature-list">
+        <li class="reveal reveal-d2">Site Analysis &amp; Feasibility Studies</li>
+        <li class="reveal reveal-d3">Planning Strategy &amp; Submissions</li>
+        <li class="reveal reveal-d4">Stakeholder Engagement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION LINE ═══ -->
+<span class="section-line"></span>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="process section-padding">
+  <div class="blueprint-grid" style="opacity: 0.35;"></div>
+  <div class="compass" style="top: 60px; right: 10%;"></div>
+  <div class="process-inner" style="position:relative; z-index:2;">
+    <div class="section-label reveal">02 &mdash; Our Process</div>
+    <h2 class="section-heading reveal reveal-d1">From Vision to Reality</h2>
+    <div class="process-timeline">
+      <div class="process-step reveal reveal-d2">
+        <div class="step-dot">01</div>
+        <div class="step-title">Discovery</div>
+        <div class="step-desc">We listen. Your vision and aspirations form the foundation.</div>
+      </div>
+      <div class="process-step reveal reveal-d3">
+        <div class="step-dot">02</div>
+        <div class="step-title">Design</div>
+        <div class="step-desc">Concepts evolve through collaboration and 3D visualization.</div>
+      </div>
+      <div class="process-step reveal reveal-d4">
+        <div class="step-dot">03</div>
+        <div class="step-title">Develop</div>
+        <div class="step-desc">Precision documentation. Every detail built as designed.</div>
+      </div>
+      <div class="process-step reveal reveal-d5">
+        <div class="step-dot">04</div>
+        <div class="step-title">Deliver</div>
+        <div class="step-desc">Site supervision to handover. Reality exceeds the render.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats" data-dark-section>
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-count="300">0</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-item reveal reveal-d1">
+      <div class="stat-number" data-count="15">0</div>
+      <div class="stat-label">Awards Won</div>
+    </div>
+    <div class="stat-item reveal reveal-d2">
+      <div class="stat-number" data-count="10">0</div>
+      <div class="stat-label">Years of Excellence</div>
+    </div>
+    <div class="stat-item reveal reveal-d3">
+      <div class="stat-number" data-count="50">0</div>
+      <div class="stat-label">Design Professionals</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta section-padding">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <h2 class="cta-heading reveal">Ready to Start?</h2>
+    <p class="cta-sub reveal reveal-d1">Let's turn your vision into architecture that endures.</p>
+    <div class="cta-buttons reveal reveal-d2">
+      <button class="btn-white" data-modal>Start a Project</button>
+      <a href="tel:07721632406" class="btn-outline-white">Call Us: 07721 632 406</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">ALBERTIUM</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <p>Sustainability meets creativity. Designing spaces that move people since 2014.</p>
+        <p style="margin-top: 16px;">86 St. Barnabas Road</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="demo.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" data-modal>Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@albertium.com">info@albertium.com</a>
+        <a href="tel:07721632406">07721 632 406</a>
+        <div style="margin-top: 16px;">
+          <a href="#" style="display: inline; margin-right: 16px;">Instagram</a>
+          <a href="#" style="display: inline; margin-right: 16px;">Facebook</a>
+          <a href="#" style="display: inline; margin-right: 16px;">X</a>
+          <a href="#" style="display: inline;">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Albertium. All rights reserved.</span>
+    <a href="#">Website by ShipYard Studios</a>
+  </div>
+</footer>
+
+<!-- ═══ CONTACT MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div id="modalForm">
+      <div class="modal-progress" id="modalProgress">
+        <div class="modal-progress-bar active"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+        <div class="modal-progress-bar"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="modal-step active" data-step="1">
+        <div class="modal-step-label">Step 1 of 4</div>
+        <div class="modal-step-title">What type of project?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Residential">Residential</button>
+          <button class="option-btn" data-value="Commercial">Commercial</button>
+          <button class="option-btn" data-value="Cultural">Cultural</button>
+          <button class="option-btn" data-value="Interior">Interior</button>
+          <button class="option-btn" data-value="Mixed-Use">Mixed-Use</button>
+          <button class="option-btn" data-value="Other">Other</button>
+        </div>
+        <div class="modal-nav">
+          <div></div>
+          <button class="modal-next" id="step1Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="modal-step" data-step="2">
+        <div class="modal-step-label">Step 2 of 4</div>
+        <div class="modal-step-title">Estimated budget range?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Under £250K">Under &pound;250K</button>
+          <button class="option-btn" data-value="£250K–£500K">&pound;250K &ndash; &pound;500K</button>
+          <button class="option-btn" data-value="£500K–£1M">&pound;500K &ndash; &pound;1M</button>
+          <button class="option-btn" data-value="£1M–£5M">&pound;1M &ndash; &pound;5M</button>
+          <button class="option-btn" data-value="£5M+">&pound;5M+</button>
+          <button class="option-btn" data-value="Not Sure Yet">Not Sure Yet</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="1">Back</button>
+          <button class="modal-next" id="step2Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="modal-step" data-step="3">
+        <div class="modal-step-label">Step 3 of 4</div>
+        <div class="modal-step-title">Project timeline?</div>
+        <div class="option-grid">
+          <button class="option-btn" data-value="Immediate">Immediate</button>
+          <button class="option-btn" data-value="3–6 Months">3 &ndash; 6 Months</button>
+          <button class="option-btn" data-value="6–12 Months">6 &ndash; 12 Months</button>
+          <button class="option-btn" data-value="12+ Months">12+ Months</button>
+          <button class="option-btn" data-value="Flexible">Flexible</button>
+          <button class="option-btn" data-value="Urgent">Urgent</button>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="2">Back</button>
+          <button class="modal-next" id="step3Next">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="modal-step" data-step="4">
+        <div class="modal-step-label">Step 4 of 4</div>
+        <div class="modal-step-title">Your details</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Doe" id="formName">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com" id="formEmail">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+44 7XXX XXXXXX" id="formPhone">
+        </div>
+        <div class="form-group">
+          <label>Brief Description</label>
+          <textarea placeholder="Tell us about your project vision..." id="formDesc"></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="modal-back" data-goto="3">Back</button>
+          <button class="modal-next" id="formSubmit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="success-check">&#10003;</div>
+      <div class="success-title">Thank You</div>
+      <p class="success-desc">Your project enquiry has been received. Our team will be in touch within 24 hours to discuss your vision.</p>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+
+</body>
+</html>
