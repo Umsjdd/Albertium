@@ -4,6 +4,7 @@ import helmet from "helmet";
 import compression from "compression";
 import path from "node:path";
 import { registerPageRoutes } from "./routes/pages.ts";
+import { registerContactRoutes } from "./routes/contact.ts";
 
 // Resolve views/ and public/ relative to the process working directory.
 // This works identically for `tsx server/index.ts` in dev (cwd = repo root)
@@ -17,6 +18,9 @@ const port = Number(process.env.PORT ?? 5000);
 app.set("view engine", "ejs");
 app.set("views", path.join(projectRoot, "views"));
 app.disable("x-powered-by");
+// Replit puts us behind a proxy; trust it so req.ip and req.secure reflect
+// the real client instead of the loopback connection from the load balancer.
+app.set("trust proxy", 1);
 
 /* ─── Security headers ─── */
 app.use(
@@ -70,6 +74,9 @@ app.get("/healthz", (_req, res) => {
 
 /* ─── Page routes ─── */
 registerPageRoutes(app);
+
+/* ─── API routes ─── */
+registerContactRoutes(app);
 
 /* ─── 404 ─── */
 app.use((req, res) => {

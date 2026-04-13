@@ -718,7 +718,8 @@
   });
 
   // Submit
-  document.getElementById('inlineFormSubmit').addEventListener('click', function() {
+  var submitBtn = document.getElementById('inlineFormSubmit');
+  submitBtn.addEventListener('click', function() {
     var name = document.getElementById('inlineFormName').value.trim();
     var email = document.getElementById('inlineFormEmail').value.trim();
     if (!name || !email) return;
@@ -727,13 +728,32 @@
     formData.email = email;
     formData.phone = document.getElementById('inlineFormPhone').value.trim();
     formData.description = document.getElementById('inlineFormDesc').value.trim();
+    formData.source = 'inline';
 
-    // Hide steps and progress, show success
-    steps.forEach(function(s) { s.classList.remove('active'); });
-    progressContainer.style.display = 'none';
-    successEl.classList.add('active');
+    submitBtn.disabled = true;
+    var originalLabel = submitBtn.textContent;
+    submitBtn.textContent = 'Sending…';
 
-    console.log('Inline form submitted:', formData);
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    })
+      .then(function(res) { return res.json().then(function(body) { return { ok: res.ok, body: body }; }); })
+      .then(function(result) {
+        if (!result.ok || !result.body.ok) {
+          throw new Error((result.body && result.body.error) || 'Submission failed');
+        }
+        steps.forEach(function(s) { s.classList.remove('active'); });
+        progressContainer.style.display = 'none';
+        successEl.classList.add('active');
+      })
+      .catch(function(err) {
+        console.error('[contact] submission failed:', err);
+        alert('Sorry — we couldn\u2019t send that. Please try again or email info@albertium.com directly.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      });
   });
 })();
 </script>

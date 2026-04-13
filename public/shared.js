@@ -289,8 +289,44 @@
     document.querySelectorAll('.modal-next').forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.id === 'formSubmit') {
-          modalForm.style.display = 'none';
-          modalSuccess.classList.add('active');
+          const name = (document.getElementById('formName') || {}).value || '';
+          const email = (document.getElementById('formEmail') || {}).value || '';
+          if (!name.trim() || !email.trim()) return;
+
+          const payload = {
+            name: name.trim(),
+            email: email.trim(),
+            phone: ((document.getElementById('formPhone') || {}).value || '').trim(),
+            description: ((document.getElementById('formDesc') || {}).value || '').trim(),
+            projectType: (document.querySelector('.modal-step[data-step="1"] .option-btn.selected') || {}).dataset ? document.querySelector('.modal-step[data-step="1"] .option-btn.selected').dataset.value : '',
+            budget: (document.querySelector('.modal-step[data-step="2"] .option-btn.selected') || {}).dataset ? document.querySelector('.modal-step[data-step="2"] .option-btn.selected').dataset.value : '',
+            timeline: (document.querySelector('.modal-step[data-step="3"] .option-btn.selected') || {}).dataset ? document.querySelector('.modal-step[data-step="3"] .option-btn.selected').dataset.value : '',
+            source: 'modal',
+          };
+
+          btn.disabled = true;
+          const originalLabel = btn.textContent;
+          btn.textContent = 'Sending…';
+
+          fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(r => r.json().then(body => ({ ok: r.ok, body })))
+            .then(result => {
+              if (!result.ok || !result.body.ok) {
+                throw new Error((result.body && result.body.error) || 'Submission failed');
+              }
+              modalForm.style.display = 'none';
+              modalSuccess.classList.add('active');
+            })
+            .catch(err => {
+              console.error('[contact modal] submission failed:', err);
+              alert('Sorry — we couldn\u2019t send that. Please try again or email info@albertium.com directly.');
+              btn.disabled = false;
+              btn.textContent = originalLabel;
+            });
           return;
         }
         if (currentStep < 4) showStep(currentStep + 1);

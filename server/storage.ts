@@ -18,6 +18,7 @@ import {
   stats,
   processSteps,
   siteSettings,
+  contactSubmissions,
   type Project,
   type ServiceWithFeatures,
   type StudioValue,
@@ -26,6 +27,8 @@ import {
   type Stat,
   type ProcessStep,
   type SiteSettings,
+  type ContactSubmission,
+  type InsertContactSubmission,
 } from "@shared/schema";
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -97,3 +100,9 @@ export async function listProcessSteps(): Promise<ProcessStep[]> {
     .orderBy(asc(processSteps.sortOrder), asc(processSteps.id));
 }
 
+export async function insertContactSubmission(
+  row: InsertContactSubmission,
+): Promise<ContactSubmission> {
+  const [inserted] = await db.insert(contactSubmissions).values(row).returning();
+  return inserted;
+}
