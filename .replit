@@ -14,11 +14,8 @@ PORT = "5000"
 
 [deployment]
 deploymentTarget = "autoscale"
-# Replit auto-runs `npm install` before this command, so we just
-# trigger the bundle. Mirrors resoled-fix's working deploy config.
-build = ["npm", "run", "build"]
-# Run the bundled JS directly — no tsx at runtime.
-run = ["node", "dist/server.cjs"]
+build = ["bash", "-c", "npm install && npm run build && npm run db:push && npm run db:seed"]
+run = ["npm", "start"]
 
 [workflows]
 runButton = "Project"
