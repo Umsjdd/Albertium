@@ -1,0 +1,20 @@
+<%- include('_shell_open', { title: 'Dashboard', heading: 'Dashboard', section: 'home', user: user }) %>
+
+<div class="card">
+  <h2>Welcome</h2>
+  <p>This is your content editor. Pick a section on the left to edit projects, team, services, or anything else that appears on the public site.</p>
+  <p>Changes are live immediately — there's no draft/publish step. Double-check before you save.</p>
+</div>
+
+<div class="card">
+  <h2>Quick links</h2>
+  <div class="stack">
+    <div>📁 <a href="/admin/projects">Projects</a> — the 9 portfolio items on <a href="/projects" target="_blank" rel="noopener">/projects</a></div>
+    <div>🛠 <a href="/admin/services">Services</a> — the four service offerings on <a href="/services" target="_blank" rel="noopener">/services</a></div>
+    <div>👥 <a href="/admin/team">Team</a> — founder and designers on <a href="/about" target="_blank" rel="noopener">/about</a></div>
+    <div>⚙️ <a href="/admin/site-settings">Site settings</a> — contact info, social links, tagline</div>
+    <div>📨 <a href="/admin/submissions">Contact form submissions</a></div>
+  </div>
+</div>
+
+<%- include('_shell_close') %>

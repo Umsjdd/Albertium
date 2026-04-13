@@ -1,0 +1,55 @@
+<%- include('../_shell_open', { title: 'Projects', heading: heading, section: section, user: user, flash: flash, headerAction: headerAction }) %>
+
+<div class="card" style="padding: 0;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 60px;">Order</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th style="width: 100px;">Featured</th>
+        <th style="width: 90px;">Live</th>
+        <th class="row-actions" style="width: 180px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.forEach(function(project) { %>
+        <tr>
+          <td><%= project.sortOrder %></td>
+          <td>
+            <strong><%= project.title %></strong>
+            <div class="muted" style="font-size: 12px;"><%= project.slug %></div>
+          </td>
+          <td><%= project.category %></td>
+          <td><%= project.location || '—' %><% if (project.year) { %> · <%= project.year %><% } %></td>
+          <td>
+            <% if (project.featured) { %>
+              <span class="badge badge-featured">Featured</span>
+            <% } else { %>
+              <span class="muted">—</span>
+            <% } %>
+          </td>
+          <td>
+            <% if (project.published) { %>
+              <span class="badge badge-new">Live</span>
+            <% } else { %>
+              <span class="muted">Hidden</span>
+            <% } %>
+          </td>
+          <td class="row-actions">
+            <a href="/admin/projects/<%= project.id %>/edit" class="btn btn-sm">Edit</a>
+            <form method="POST" action="/admin/projects/<%= project.id %>/delete" style="display: inline;" onsubmit="return confirm('Delete &ldquo;<%= project.title.replace(/'/g, '\u2019') %>&rdquo;? This cannot be undone.');">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (projects.length === 0) { %>
+        <tr><td colspan="7" class="muted" style="text-align: center; padding: 32px;">No projects yet. <a href="/admin/projects/new">Create one</a>.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../_shell_close') %>

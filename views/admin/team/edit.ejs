@@ -1,0 +1,47 @@
+<%- include('../_shell_open', { title: row ? 'Edit team member' : 'New team member', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+
+<form method="POST" action="<%= row ? '/admin/' + pathSegment + '/' + row.id + '/edit' : '/admin/' + pathSegment + '/new' %>" class="card">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="<%= values.name || '' %>" required>
+      <%- err('name') %>
+    </div>
+    <div class="form-field">
+      <label for="role">Role</label>
+      <input type="text" id="role" name="role" value="<%= values.role || '' %>" required placeholder="Design Director">
+      <%- err('role') %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="gradientVariant">Card gradient variant</label>
+      <select id="gradientVariant" name="gradientVariant">
+        <% [1,2,3,4].forEach(function(v) { %>
+          <option value="<%= v %>" <%= Number(values.gradientVariant) === v ? 'selected' : '' %>>Variant <%= v %></option>
+        <% }); %>
+      </select>
+      <div class="hint">Picks one of the four team-card-bg gradients.</div>
+    </div>
+    <div class="form-field">
+      <label for="sortOrder">Sort order</label>
+      <input type="number" id="sortOrder" name="sortOrder" value="<%= values.sortOrder ?? 0 %>">
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="bio">Bio</label>
+    <textarea id="bio" name="bio" rows="4"><%= values.bio || '' %></textarea>
+    <div class="hint">Optional — reserved for a future team detail panel.</div>
+  </div>
+
+  <div class="form-actions">
+    <a href="/admin/<%= pathSegment %>" class="btn">Cancel</a>
+    <button type="submit" class="btn btn-primary"><%= row ? 'Save' : 'Create' %></button>
+  </div>
+</form>
+
+<%- include('../_shell_close') %>

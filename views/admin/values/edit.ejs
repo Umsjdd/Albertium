@@ -1,0 +1,36 @@
+<%- include('../_shell_open', { title: row ? 'Edit value' : 'New value', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+
+<form method="POST" action="<%= row ? '/admin/' + pathSegment + '/' + row.id + '/edit' : '/admin/' + pathSegment + '/new' %>" class="card">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="number">Number</label>
+      <input type="text" id="number" name="number" value="<%= values.number || '' %>" placeholder="01" required>
+      <%- err('number') %>
+    </div>
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" value="<%= values.title || '' %>" required>
+      <%- err('title') %>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="4" required><%= values.description || '' %></textarea>
+    <%- err('description') %>
+  </div>
+
+  <div class="form-field" style="max-width: 200px;">
+    <label for="sortOrder">Sort order</label>
+    <input type="number" id="sortOrder" name="sortOrder" value="<%= values.sortOrder ?? 0 %>">
+  </div>
+
+  <div class="form-actions">
+    <a href="/admin/<%= pathSegment %>" class="btn">Cancel</a>
+    <button type="submit" class="btn btn-primary"><%= row ? 'Save' : 'Create' %></button>
+  </div>
+</form>
+
+<%- include('../_shell_close') %>

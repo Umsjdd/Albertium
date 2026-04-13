@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title><%= title %> — Albertium Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <div class="admin-brand-name">Albertium</div>
+      <div class="admin-brand-sub">Studio Admin</div>
+    </div>
+    <nav class="admin-nav">
+      <a href="/admin" class="<%= section === 'home' ? 'active' : '' %>">Dashboard</a>
+      <div class="admin-nav-section">Content</div>
+      <a href="/admin/projects" class="<%= section === 'projects' ? 'active' : '' %>">Projects</a>
+      <a href="/admin/services" class="<%= section === 'services' ? 'active' : '' %>">Services</a>
+      <a href="/admin/team" class="<%= section === 'team' ? 'active' : '' %>">Team</a>
+      <a href="/admin/values" class="<%= section === 'values' ? 'active' : '' %>">Studio values</a>
+      <a href="/admin/timeline" class="<%= section === 'timeline' ? 'active' : '' %>">Timeline</a>
+      <a href="/admin/stats" class="<%= section === 'stats' ? 'active' : '' %>">Stats</a>
+      <a href="/admin/process-steps" class="<%= section === 'process' ? 'active' : '' %>">Process steps</a>
+      <div class="admin-nav-section">Site</div>
+      <a href="/admin/site-settings" class="<%= section === 'settings' ? 'active' : '' %>">Settings</a>
+      <a href="/admin/submissions" class="<%= section === 'submissions' ? 'active' : '' %>">Enquiries</a>
+      <div class="admin-nav-section">Account</div>
+      <a href="/" target="_blank" rel="noopener">View public site ↗</a>
+      <form method="POST" action="/admin/logout" style="padding: 8px 12px; margin: 0;">
+        <button type="submit" class="btn btn-sm" style="width: 100%; justify-content: center;">Sign out</button>
+      </form>
+    </nav>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1><%= heading %></h1>
+      <div class="admin-header-actions">
+        <% if (typeof headerAction !== 'undefined' && headerAction) { %>
+          <a href="<%= headerAction.href %>" class="btn btn-primary"><%= headerAction.label %></a>
+        <% } %>
+        <span class="admin-user">Signed in as <%= user.displayName || user.email %></span>
+      </div>
+    </div>
+
+    <% if (typeof flash !== 'undefined' && flash) { %>
+      <div class="flash flash-<%= flash.type %>"><%= flash.message %></div>
+    <% } %>

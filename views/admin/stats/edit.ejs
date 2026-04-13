@@ -1,0 +1,37 @@
+<%- include('../_shell_open', { title: row ? 'Edit stat' : 'New stat', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+
+<form method="POST" action="<%= row ? '/admin/' + pathSegment + '/' + row.id + '/edit' : '/admin/' + pathSegment + '/new' %>" class="card">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="count">Count</label>
+      <input type="number" id="count" name="count" value="<%= values.count ?? '' %>" required>
+      <div class="hint">The number the counter animates up to.</div>
+      <%- err('count') %>
+    </div>
+    <div class="form-field">
+      <label for="suffix">Suffix</label>
+      <input type="text" id="suffix" name="suffix" value="<%= values.suffix || '' %>" placeholder="+ or %">
+      <div class="hint">Optional — rendered after the number (e.g. "300+").</div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="label">Label</label>
+    <input type="text" id="label" name="label" value="<%= values.label || '' %>" required>
+    <%- err('label') %>
+  </div>
+
+  <div class="form-field" style="max-width: 200px;">
+    <label for="sortOrder">Sort order</label>
+    <input type="number" id="sortOrder" name="sortOrder" value="<%= values.sortOrder ?? 0 %>">
+  </div>
+
+  <div class="form-actions">
+    <a href="/admin/<%= pathSegment %>" class="btn">Cancel</a>
+    <button type="submit" class="btn btn-primary"><%= row ? 'Save' : 'Create' %></button>
+  </div>
+</form>
+
+<%- include('../_shell_close') %>

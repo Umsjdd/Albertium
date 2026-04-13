@@ -1,0 +1,36 @@
+<%- include('../_shell_open', { title: 'Process steps', heading: heading, section: section, user: user, flash: flash, headerAction: headerAction }) %>
+
+<div class="card" style="padding: 0;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 80px;">Step</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th style="width: 80px;">Order</th>
+        <th class="row-actions" style="width: 180px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.forEach(function(row) { %>
+        <tr>
+          <td><strong><%= row.stepNumber %></strong></td>
+          <td><%= row.title %></td>
+          <td class="muted" style="max-width: 480px;"><%= row.description %></td>
+          <td><%= row.sortOrder %></td>
+          <td class="row-actions">
+            <a href="/admin/<%= pathSegment %>/<%= row.id %>/edit" class="btn btn-sm">Edit</a>
+            <form method="POST" action="/admin/<%= pathSegment %>/<%= row.id %>/delete" style="display: inline;" onsubmit="return confirm('Delete this step?');">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (rows.length === 0) { %>
+        <tr><td colspan="5" class="muted" style="text-align: center; padding: 32px;">Nothing yet.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../_shell_close') %>

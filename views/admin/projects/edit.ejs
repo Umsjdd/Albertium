@@ -1,0 +1,83 @@
+<%- include('../_shell_open', { title: project ? 'Edit project' : 'New project', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+
+<form method="POST" action="<%= project ? '/admin/projects/' + project.id + '/edit' : '/admin/projects/new' %>" class="card">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" value="<%= values.title || '' %>" required>
+      <%- err('title') %>
+    </div>
+    <div class="form-field">
+      <label for="slug">Slug</label>
+      <input type="text" id="slug" name="slug" value="<%= values.slug || '' %>" required pattern="[a-z0-9-]+">
+      <div class="hint">Lowercase, hyphens only. Used in URLs.</div>
+      <%- err('slug') %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <% ['residential','commercial','cultural','interior','sustainable'].forEach(function(c) { %>
+          <option value="<%= c %>" <%= values.category === c ? 'selected' : '' %>><%= c %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="meta">Meta line</label>
+      <input type="text" id="meta" name="meta" value="<%= values.meta || '' %>" placeholder="London, 2024">
+      <div class="hint">Shown under the title on the project card.</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" value="<%= values.location || '' %>">
+    </div>
+    <div class="form-field">
+      <label for="year">Year</label>
+      <input type="number" id="year" name="year" value="<%= values.year || '' %>" min="1900" max="2100">
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="4"><%= values.description || '' %></textarea>
+    <div class="hint">Optional — not shown on the card, reserved for a future project detail page.</div>
+  </div>
+
+  <div class="form-field">
+    <label for="gradientCss">Card gradient (CSS background)</label>
+    <input type="text" id="gradientCss" name="gradientCss" value="<%= values.gradientCss || '' %>" placeholder="linear-gradient(145deg, #2c3e6b, #0f1a30)">
+    <div class="hint">Paste a CSS gradient. The card uses this as its visual until real project photography is added.</div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="sortOrder">Sort order</label>
+      <input type="number" id="sortOrder" name="sortOrder" value="<%= values.sortOrder ?? 0 %>">
+      <div class="hint">Lower numbers appear first.</div>
+    </div>
+    <div class="form-field">
+      <label style="display: flex; align-items: center; gap: 8px; margin-top: 24px;">
+        <input type="checkbox" name="featured" <%= values.featured ? 'checked' : '' %>>
+        <span>Featured (wider card on the grid)</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+        <input type="checkbox" name="published" <%= values.published !== false ? 'checked' : '' %>>
+        <span>Live on the public site</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <a href="/admin/projects" class="btn">Cancel</a>
+    <button type="submit" class="btn btn-primary"><%= project ? 'Save changes' : 'Create project' %></button>
+  </div>
+</form>
+
+<%- include('../_shell_close') %>

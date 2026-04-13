@@ -3,8 +3,11 @@ import express, { type Request, type Response, type NextFunction } from "express
 import helmet from "helmet";
 import compression from "compression";
 import path from "node:path";
+import { configureAuth } from "./auth.ts";
 import { registerPageRoutes } from "./routes/pages.ts";
 import { registerContactRoutes } from "./routes/contact.ts";
+import { registerAdminRoutes } from "./routes/admin.ts";
+import { registerAdminCrudRoutes } from "./routes/admin-crud.ts";
 
 // Resolve views/ and public/ relative to the process working directory.
 // This works identically for `tsx server/index.ts` in dev (cwd = repo root)
@@ -57,6 +60,9 @@ app.use(
   }),
 );
 
+/* ─── Session + Passport (must come before any /admin routes) ─── */
+configureAuth(app);
+
 /* ─── Tiny request logger ─── */
 app.use((req, _res, next) => {
   if (req.path.startsWith("/shared.") || req.path.startsWith("/favicon")) return next();
@@ -78,11 +84,13 @@ registerPageRoutes(app);
 /* ─── API routes ─── */
 registerContactRoutes(app);
 
+/* ─── Admin routes ─── */
+registerAdminRoutes(app);
+registerAdminCrudRoutes(app);
+
 /* ─── 404 ─── */
-app.use((req, res) => {
-  res.status(404).render("index", {
-    // For now, 404s fall back to home. Replace with a proper 404.ejs later.
-  });
+app.use((_req, res) => {
+  res.status(404).render("404");
 });
 
 /* ─── Error handler ─── */

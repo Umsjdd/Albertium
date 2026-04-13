@@ -1,0 +1,44 @@
+<%- include('_shell_open', { title: 'Contact submissions', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<div class="card" style="padding: 0;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 180px;">Received</th>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Project</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% submissions.forEach(function(s) { %>
+        <tr>
+          <td class="muted" style="font-size: 12px;">
+            <%= s.createdAt.toLocaleDateString('en-GB') %><br>
+            <%= s.createdAt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) %>
+          </td>
+          <td>
+            <strong><%= s.name %></strong>
+            <% if (s.source) { %><div><span class="badge"><%= s.source %></span></div><% } %>
+          </td>
+          <td class="muted">
+            <a href="mailto:<%= s.email %>"><%= s.email %></a>
+            <% if (s.phone) { %><br><span class="muted"><%= s.phone %></span><% } %>
+          </td>
+          <td class="muted" style="font-size: 12px;">
+            <% if (s.projectType) { %><div><strong>Type:</strong> <%= s.projectType %></div><% } %>
+            <% if (s.budget) { %><div><strong>Budget:</strong> <%= s.budget %></div><% } %>
+            <% if (s.timeline) { %><div><strong>Timeline:</strong> <%= s.timeline %></div><% } %>
+          </td>
+          <td class="muted" style="max-width: 380px; font-size: 13px;"><%= s.description || '—' %></td>
+        </tr>
+      <% }); %>
+      <% if (submissions.length === 0) { %>
+        <tr><td colspan="5" class="muted" style="text-align: center; padding: 32px;">No enquiries yet.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('_shell_close') %>

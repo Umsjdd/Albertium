@@ -1,0 +1,71 @@
+<%- include('_shell_open', { title: 'Site settings', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+
+<form method="POST" action="/admin/site-settings" class="card">
+  <h2>Contact details</h2>
+  <div class="form-row">
+    <div class="form-field">
+      <label for="email">Contact email</label>
+      <input type="email" id="email" name="email" value="<%= values.email || '' %>" required>
+      <%- err('email') %>
+    </div>
+    <div class="form-field">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" value="<%= values.phone || '' %>" required>
+      <%- err('phone') %>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="address">Studio address</label>
+    <input type="text" id="address" name="address" value="<%= values.address || '' %>" required>
+    <%- err('address') %>
+  </div>
+
+  <div class="form-field">
+    <label for="officeHours">Office hours</label>
+    <input type="text" id="officeHours" name="officeHours" value="<%= values.officeHours || '' %>" required placeholder="Mon – Fri: 9:00 – 18:00">
+    <%- err('officeHours') %>
+  </div>
+
+  <h2 style="margin-top: 24px;">Branding</h2>
+  <div class="form-field">
+    <label for="tagline">Tagline</label>
+    <textarea id="tagline" name="tagline" rows="2" required><%= values.tagline || '' %></textarea>
+    <%- err('tagline') %>
+  </div>
+
+  <div class="form-field" style="max-width: 200px;">
+    <label for="copyrightYear">Copyright year</label>
+    <input type="number" id="copyrightYear" name="copyrightYear" value="<%= values.copyrightYear || new Date().getFullYear() %>" min="2000" max="2100" required>
+  </div>
+
+  <h2 style="margin-top: 24px;">Social links</h2>
+  <div class="form-row">
+    <div class="form-field">
+      <label for="instagramUrl">Instagram URL</label>
+      <input type="url" id="instagramUrl" name="instagramUrl" value="<%= values.instagramUrl || '' %>" placeholder="https://instagram.com/...">
+    </div>
+    <div class="form-field">
+      <label for="facebookUrl">Facebook URL</label>
+      <input type="url" id="facebookUrl" name="facebookUrl" value="<%= values.facebookUrl || '' %>" placeholder="https://facebook.com/...">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-field">
+      <label for="twitterUrl">X / Twitter URL</label>
+      <input type="url" id="twitterUrl" name="twitterUrl" value="<%= values.twitterUrl || '' %>" placeholder="https://x.com/...">
+    </div>
+    <div class="form-field">
+      <label for="youtubeUrl">YouTube URL</label>
+      <input type="url" id="youtubeUrl" name="youtubeUrl" value="<%= values.youtubeUrl || '' %>" placeholder="https://youtube.com/...">
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Save settings</button>
+  </div>
+</form>
+
+<%- include('_shell_close') %>

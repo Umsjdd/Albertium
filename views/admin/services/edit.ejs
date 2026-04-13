@@ -1,0 +1,66 @@
+<%- include('../_shell_open', { title: service ? 'Edit service' : 'New service', heading: heading, section: section, user: user, flash: flash, headerAction: undefined }) %>
+
+<% function err(field) { return errors && errors[field] ? '<div class="hint" style="color:#dc2626">' + errors[field].join(', ') + '</div>' : '' } %>
+<% const featureValue = (typeof features !== 'undefined' && features.length > 0) ? features.map(function(f){ return f.label; }).join('\n') : (values.featureLabels || '') %>
+
+<form method="POST" action="<%= service ? '/admin/services/' + service.id + '/edit' : '/admin/services/new' %>" class="card">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" value="<%= values.title || '' %>" required>
+      <%- err('title') %>
+    </div>
+    <div class="form-field">
+      <label for="number">Number label</label>
+      <input type="text" id="number" name="number" value="<%= values.number || '' %>" required placeholder="01">
+      <div class="hint">Displayed on the overview card, e.g. "01".</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="slug">Slug</label>
+      <input type="text" id="slug" name="slug" value="<%= values.slug || '' %>" required pattern="[a-z0-9-]+">
+    </div>
+    <div class="form-field">
+      <label for="detailBgClass">Detail background class</label>
+      <select id="detailBgClass" name="detailBgClass">
+        <% ['sd-bg-1','sd-bg-2','sd-bg-3','sd-bg-4'].forEach(function(c) { %>
+          <option value="<%= c %>" <%= values.detailBgClass === c ? 'selected' : '' %>><%= c %></option>
+        <% }); %>
+      </select>
+      <div class="hint">Picks one of the pre-defined gradient backgrounds for the detail section.</div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="description">Short description</label>
+    <textarea id="description" name="description" rows="2" required><%= values.description || '' %></textarea>
+    <div class="hint">One or two sentences — shown on the services overview grid.</div>
+    <%- err('description') %>
+  </div>
+
+  <div class="form-field">
+    <label for="detailBody">Detail body</label>
+    <textarea id="detailBody" name="detailBody" rows="5"><%= values.detailBody || '' %></textarea>
+    <div class="hint">Longer paragraph shown in the detail section lower on the page.</div>
+  </div>
+
+  <div class="form-field">
+    <label for="featureLabels">Feature list</label>
+    <textarea id="featureLabels" name="featureLabels" rows="4" placeholder="One feature per line"><%= featureValue %></textarea>
+    <div class="hint">One feature per line. Replaces the existing list on save.</div>
+  </div>
+
+  <div class="form-field" style="max-width: 200px;">
+    <label for="sortOrder">Sort order</label>
+    <input type="number" id="sortOrder" name="sortOrder" value="<%= values.sortOrder ?? 0 %>">
+  </div>
+
+  <div class="form-actions">
+    <a href="/admin/services" class="btn">Cancel</a>
+    <button type="submit" class="btn btn-primary"><%= service ? 'Save changes' : 'Create service' %></button>
+  </div>
+</form>
+
+<%- include('../_shell_close') %>
