@@ -38,6 +38,8 @@ app.use(
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         imgSrc: ["'self'", "data:", "https:"],
         connectSrc: ["'self'"],
+        // Google Maps embed on /contact
+        frameSrc: ["'self'", "https://www.google.com", "https://maps.google.com"],
         objectSrc: ["'none'"],
         frameAncestors: ["'none'"],
       },

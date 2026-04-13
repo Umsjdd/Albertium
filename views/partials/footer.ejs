@@ -1,0 +1,42 @@
+<!-- ═══ FOOTER (shared partial) ═══ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">ALBERTIUM</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <p><%= settings.tagline %></p>
+        <p style="margin-top: 16px;"><%= settings.address %></p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="/">Home</a>
+        <a href="/projects">Projects</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:<%= settings.email %>"><%= settings.email %></a>
+        <a href="tel:<%= settings.phone.replace(/\s+/g, '') %>"><%= settings.phone %></a>
+        <% const socials = [
+          { url: settings.instagramUrl, label: 'Instagram' },
+          { url: settings.facebookUrl, label: 'Facebook' },
+          { url: settings.twitterUrl, label: 'X' },
+          { url: settings.youtubeUrl, label: 'YouTube' },
+        ].filter(function(s){ return s.url; }); %>
+        <% if (socials.length > 0) { %>
+          <div style="margin-top: 16px;">
+            <% socials.forEach(function(s, i) { %>
+              <a href="<%= s.url %>" target="_blank" rel="noopener" style="display: inline; <%= i < socials.length - 1 ? 'margin-right: 16px;' : '' %>"><%= s.label %></a>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; <%= settings.copyrightYear %> Albertium. All rights reserved.</span>
+  </div>
+</footer>

@@ -368,29 +368,44 @@
     <div class="contact-info reveal">
       <div class="contact-info-item">
         <div class="ci-label">Visit Us</div>
-        <div class="ci-value">86 St. Barnabas Road</div>
+        <div class="ci-value"><%= settings.address %></div>
       </div>
       <div class="contact-info-item">
         <div class="ci-label">Call Us</div>
-        <div class="ci-value"><a href="tel:07721632406">07721 632 406</a></div>
+        <div class="ci-value"><a href="tel:<%= settings.phone.replace(/\s+/g, '') %>"><%= settings.phone %></a></div>
       </div>
       <div class="contact-info-item">
         <div class="ci-label">Email Us</div>
-        <div class="ci-value"><a href="mailto:info@albertium.com">info@albertium.com</a></div>
+        <div class="ci-value"><a href="mailto:<%= settings.email %>"><%= settings.email %></a></div>
       </div>
       <div class="contact-info-item">
         <div class="ci-label">Office Hours</div>
-        <div class="ci-value">Mon &ndash; Fri: 9:00 &ndash; 18:00</div>
+        <div class="ci-value"><%= settings.officeHours %></div>
       </div>
 
-      <div class="social-links">
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">X</a>
-        <a href="#">YouTube</a>
-      </div>
+      <% const socials = [
+        { url: settings.instagramUrl, label: 'Instagram' },
+        { url: settings.facebookUrl, label: 'Facebook' },
+        { url: settings.twitterUrl, label: 'X' },
+        { url: settings.youtubeUrl, label: 'YouTube' },
+      ].filter(function(s){ return s.url; }); %>
+      <% if (socials.length > 0) { %>
+        <div class="social-links">
+          <% socials.forEach(function(s) { %>
+            <a href="<%= s.url %>" target="_blank" rel="noopener"><%= s.label %></a>
+          <% }); %>
+        </div>
+      <% } %>
 
-      <div class="contact-map-small">86 St. Barnabas Road</div>
+      <div class="contact-map-small" style="padding: 0; overflow: hidden;">
+        <iframe
+          src="https://www.google.com/maps?q=<%= encodeURIComponent(settings.address) %>&output=embed"
+          title="Albertium studio location"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          style="width: 100%; height: 100%; border: 0; display: block;"
+          allowfullscreen></iframe>
+      </div>
     </div>
 
     <!-- Right Column: Inline Multi-Step Form -->
@@ -497,48 +512,17 @@
 <span class="section-line"></span>
 
 <!-- ═══ MAP SECTION ═══ -->
-<section class="map-placeholder">
-  <div class="blueprint-grid"></div>
-  <div class="map-label">Our Studio</div>
-  <div class="map-address">86 St. Barnabas Road</div>
+<section class="map-placeholder" style="padding: 0; height: 420px; position: relative; overflow: hidden;">
+  <iframe
+    src="https://www.google.com/maps?q=<%= encodeURIComponent(settings.address) %>&output=embed"
+    title="Albertium studio location"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"
+    allowfullscreen></iframe>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-  <div class="footer-top">
-    <div class="footer-brand">ALBERTIUM</div>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Studio</h4>
-        <p>Sustainability meets creativity. Designing spaces that move people since 2014.</p>
-        <p style="margin-top: 16px;">86 St. Barnabas Road</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <a href="/">Home</a>
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="/services">Services</a>
-        <a href="/contact" data-modal>Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="mailto:info@albertium.com">info@albertium.com</a>
-        <a href="tel:07721632406">07721 632 406</a>
-        <div style="margin-top: 16px;">
-          <a href="#" style="display: inline; margin-right: 16px;">Instagram</a>
-          <a href="#" style="display: inline; margin-right: 16px;">Facebook</a>
-          <a href="#" style="display: inline; margin-right: 16px;">X</a>
-          <a href="#" style="display: inline;">YouTube</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 Albertium. All rights reserved.</span>
-    <a href="#">Website by ShipYard Studios</a>
-  </div>
-</footer>
+<%- include('partials/footer', { settings: settings }) %>
 
 <!-- ═══ CONTACT MODAL ═══ -->
 <div class="modal-overlay" id="modalOverlay">
