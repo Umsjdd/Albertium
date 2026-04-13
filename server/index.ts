@@ -3,11 +3,13 @@ import express, { type Request, type Response, type NextFunction } from "express
 import helmet from "helmet";
 import compression from "compression";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { registerPageRoutes } from "./routes/pages.ts";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, "..");
+// Resolve views/ and public/ relative to the process working directory.
+// This works identically for `tsx server/index.ts` in dev (cwd = repo root)
+// and `node dist/server.cjs` in production (cwd = repo root on Replit).
+// Avoids import.meta.url, which behaves differently under esbuild's CJS bundle.
+const projectRoot = process.cwd();
 
 const app = express();
 const port = Number(process.env.PORT ?? 5000);
